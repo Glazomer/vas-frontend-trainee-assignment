@@ -1,0 +1,98 @@
+body {
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+.story-previewer-preview {
+  position: relative;
+  display: inline-block;
+  width: 141px;
+  height: 188px;
+  border-radius: 13px;
+  box-sizing: content-box;
+  cursor: pointer;
+  background: rgba(120, 120, 120, 0.2);
+  border: solid 5px rgba(120, 120, 120, 0.2);
+}
+.story-previewer-preview.story-previewer-preview_selected {
+  border: solid 5px rgba(0, 162, 255, 0.8);
+}
+.story-previewer-preview.story-previewer-preview_blank {
+  border: dashed 5px rgba(0, 0, 0, 1);
+}
+.story-previewer-preview.story-previewer-preview_blank::after {
+  display: inline;
+  width: 100%;
+  content: '+';
+  text-align: center;
+  font-size: 141px;
+  font-weight: 100;
+  font-family: sans-serif;
+  position: absolute;
+}
+.story-previewer-preview ~ .story-previewer-preview {
+  margin-left: 10px;
+}
+
+.story-previewer-preview .story-previewer-delete-btn {
+  display: none;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 22px;
+  height: 22px;
+  z-index: 2;
+  background: #ff0000;
+  border: none;
+  color: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.story-previewer-preview:hover .story-previewer-delete-btn {
+  display: block;
+}
+
+.story-previewer-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 8px;
+  width: 141px;
+  height: 188px;
+}
+
+.story-previewer-title {
+  position: absolute;
+  left: 0;
+  bottom: 16px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 11px 0 14px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  color: #fff;
+  text-align: left;
+  white-space: pre-line;
+  word-wrap: break-word;
+}
+
+.carousel-content {
+  padding: 10px;
+  position: relative;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  font-size: 0;
+}
+
+.carousel-list {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 0;
+  padding: 0px;
+}
+
