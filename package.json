@@ -1,0 +1,53 @@
+{
+  "name": "vas-frontend-trainee-assignment",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "css-loader": "^5.0.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "style-loader": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/preset-react": "^7.12.7",
+    "@types/jest": "^26.0.16",
+    "@types/node": "^14.14.10",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/webpack": "4.1.4",
+    "babel-loader": "^8.2.2",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^4.5.0",
+    "mini-css-extract-plugin": "^1.3.1",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.4.3",
+    "url-loader": "^4.1.1",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "description": "Описание Написать приложение-редактор, для создания баннеров. За основу нужно взять [баннер из stories](https://i.imgur.com/K3ituxT.png) на главной Авито. Баннер создаётся из формы, которую можно заполнить на странице и сериализовать в `json`. Получившийся баннер можно экспортировать картинкой, а также как разметку.",
+  "main": "index.tsx",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack-dev-server --open --hot --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "webpack"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Glazomer/vas-frontend-trainee-assignment.git"
+  },
+  "author": "dan2000kr@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Glazomer/vas-frontend-trainee-assignment/issues"
+  },
+  "homepage": "https://github.com/Glazomer/vas-frontend-trainee-assignment#readme"
+}
