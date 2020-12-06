@@ -1,21 +1,50 @@
 import React from 'react';
-import { PreviewerProps } from '../components/Previewer';
+import { useSelector } from 'react-redux';
+import { PreviewersState, useAppDispatch } from '../reducers/previewers';
+import FileReaderAsync from '../func/FileReaderAsync';
 
 export type InputChangeEvent = (
   event: React.ChangeEvent<HTMLInputElement>
 ) => void;
-type Props = PreviewerProps & { handleInputChange: InputChangeEvent };
 
-export default function Previewer({ handleInputChange, alt, title }: Props) {
+export default function Previewer({}: {}) {
+  const dispatch = useAppDispatch(),
+    { selected, previews } = useSelector<PreviewersState, PreviewersState>(
+      (state) => state
+    ),
+    preview = previews[selected];
+
+  const handleChange: InputChangeEvent = async ({ target }) => {
+    let { type, name, value } = target;
+    if (type === 'file') {
+      value = await FileReaderAsync(target.files[0]);
+      target.value = '';
+    }
+    // @ts-ignore
+    dispatch({ type: 'EDIT', name, value });
+  };
+
   return (
     <form>
-      <input name='src' type='file' onChange={handleInputChange} />
-      <input name='alt' type='text' value={alt} onChange={handleInputChange} />
+      <input
+        name='src'
+        type='file'
+        disabled={!(selected in previews)}
+        onChange={handleChange}
+      />
+      <input
+        name='alt'
+        type='text'
+        disabled={!(selected in previews)}
+        value={preview && preview.alt}
+        onChange={handleChange}
+      />
       <input
         name='title'
         type='text'
-        value={title}
-        onChange={handleInputChange}
+        disabled={!(selected in previews)}
+        value={preview && preview.title}
+        onChange={handleChange}
       />
     </form>
   );
