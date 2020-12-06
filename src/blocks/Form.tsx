@@ -1,5 +1,5 @@
 import React from 'react';
-import { PreviewerProps } from './Previewer';
+import { PreviewerProps } from '../components/Previewer';
 
 export type InputChangeEvent = (
   event: React.ChangeEvent<HTMLInputElement>

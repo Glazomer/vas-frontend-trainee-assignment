@@ -30,9 +30,19 @@ export default function Previewer({
       }
       onClick={(e) => onClick(index, 'select', e)}>
       <button
-        className='story-previewer-delete-btn'
+        className='btn__previewer btn__previewer_delete'
         onClick={(e) => onClick(index, 'delete', e)}>
         X
+      </button>
+      <button
+        className='btn__previewer btn__previewer_arrow btn__previewer_arrow-left'
+        onClick={(e) => onClick(index, 'move-left', e)}>
+        {'<'}
+      </button>
+      <button
+        className='btn__previewer btn__previewer_arrow btn__previewer_arrow-right'
+        onClick={(e) => onClick(index, 'move-right', e)}>
+        {'>'}
       </button>
       {src && <img className='story-previewer-image' src={src} alt={alt} />}
       <div className='story-previewer-title'>{title}</div>

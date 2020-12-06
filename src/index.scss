@@ -1,0 +1,125 @@
+body {
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+.story-previewer-preview {
+  position: relative;
+  display: inline-block;
+  height: 188px;
+  width: 141px;
+  background: rgba(120, 120, 120, 0.2);
+  margin: 5px 10px;
+  border-radius: 13px;
+  cursor: pointer;
+  &_ {
+    &selected {
+      margin: 0px 5px;
+      border: solid 5px rgba(0, 162, 255, 0.8);
+    }
+    &blank {
+      margin: 0px 5px;
+      border: dashed 5px rgba(0, 0, 0, 1);
+      &::after {
+        display: inline;
+        width: 100%;
+        content: '+';
+        text-align: center;
+        font-size: 141px;
+        font-weight: 100;
+        font-family: sans-serif;
+        position: absolute;
+      }
+    }
+  }
+}
+
+.story-previewer-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 8px;
+  width: 141px;
+  height: 188px;
+}
+
+.story-previewer-title {
+  position: absolute;
+  left: 0;
+  bottom: 16px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 11px 0 14px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  color: #fff;
+  text-align: left;
+  white-space: pre-line;
+  word-wrap: break-word;
+}
+
+.carousel-content {
+  padding: 10px;
+  position: relative;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  font-size: 0;
+}
+
+.carousel-list {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 0;
+  padding: 0px;
+}
+
+.btn {
+  &__ {
+    &previewer {
+      display: none;
+      position: absolute;
+      border: none;
+      border-radius: 50%;
+      z-index: 2;
+      cursor: pointer;
+      outline: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      .story-previewer-preview_selected:hover & {
+        display: block;
+      }
+      &_ {
+        &delete {
+          top: -10px;
+          right: -10px;
+          width: 22px;
+          height: 22px;
+          background: #ff0000;
+          color: #ffffff;
+        }
+        &arrow {
+          width: 50px;
+          height: 50px;
+          top: calc(50% - 25px);
+          color: #ffffff;
+          background: #00ff00;
+          font-size: 43px;
+          font-weight: 900;
+          &-left {
+            left: -25px;
+          }
+          &-right {
+            right: -25px;
+          }
+        }
+      }
+    }
+  }
+}

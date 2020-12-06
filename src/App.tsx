@@ -1,13 +1,15 @@
 import React, { useState, MouseEvent } from 'react';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
-import CarouselList from './components/CarouselList';
+import CarouselList from './blocks/CarouselList';
 import Previewer, { PreviewerProps } from './components/Previewer';
 import AddPreviewer from './components/AddPreviewer';
-import Form from './components/Form';
+import Form from './blocks/Form';
 
 import FileReaderAsync from './func/FileReaderAsync';
 
-import { InputChangeEvent } from './components/Form';
+import { InputChangeEvent } from './blocks/Form';
 
 export type HandlePreviewerClick = (
   i: number,
@@ -35,7 +37,6 @@ export default function App() {
   };
 
   const handlePreviewerClick: HandlePreviewerClick = (i, action, e) => {
-    console.log(i, action);
     e.stopPropagation();
     switch (action) {
       case 'append':
@@ -52,6 +53,20 @@ export default function App() {
           previews.splice(i, 1);
           setPreviews([...previews]);
           if (selected >= i) setSelected(selected - 1);
+        }
+        break;
+      case 'move-left':
+        if (i - 1 in previews) {
+          previews.splice(i - 1, 0, previews.splice(i, 1)[0]);
+          setPreviews([...previews]);
+          setSelected(i - 1);
+        }
+        break;
+      case 'move-right':
+        if (i + 1 in previews) {
+          previews.splice(i + 1, 0, previews.splice(i, 1)[0]);
+          setPreviews([...previews]);
+          setSelected(i + 1);
         }
         break;
       case 'select':
