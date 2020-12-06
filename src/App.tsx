@@ -12,7 +12,7 @@ export default function App() {
   const { previews, selected } = useSelector<PreviewersState, PreviewersState>(
     (state) => state
   );
-  console.log(previews, selected);
+
   return (
     <>
       <CarouselList>

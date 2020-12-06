@@ -34,17 +34,17 @@ export default function Previewer({
       }
       onClick={(e) => handleClick(e, { type: 'SELECT', select: index })}>
       <button
-        className='btn__previewer btn__previewer_delete'
+        className='previewer__btn previewer__btn_delete'
         onClick={(e) => handleClick(e, { type: 'DELETE' })}>
         X
       </button>
       <button
-        className='btn__previewer btn__previewer_arrow btn__previewer_arrow-left'
+        className='previewer__btn previewer__btn_arrow previewer__btn_arrow-left'
         onClick={(e) => handleClick(e, { type: 'MOVE_LEFT' })}>
         {'<'}
       </button>
       <button
-        className='btn__previewer btn__previewer_arrow btn__previewer_arrow-right'
+        className='previewer__btn previewer__btn_arrow previewer__btn_arrow-right'
         onClick={(e) => handleClick(e, { type: 'MOVE_RIGHT' })}>
         {'>'}
       </button>
