@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { PreviewersState, useAppDispatch } from '../reducers/previewers';
 import FileReaderAsync from '../func/FileReaderAsync';
@@ -10,7 +10,8 @@ export type InputChangeEvent = (
 let lastValue = '';
 
 export default function Previewer({}: {}) {
-  const dispatch = useAppDispatch(),
+  const [html, setHtml] = useState(''),
+    dispatch = useAppDispatch(),
     { selected, previews } = useSelector<PreviewersState, PreviewersState>(
       (state) => state
     ),
@@ -26,13 +27,22 @@ export default function Previewer({}: {}) {
     dispatch({ type: 'EDIT', name, value });
   };
 
+  const handleGetString = (format: 'json' | 'html') => {
+    const el = document.getElementById(
+      'form__' + format
+    ) as HTMLTextAreaElement;
+    el.focus();
+    el.select();
+    document.execCommand('copy');
+  };
+
   useEffect(() => {
-    const previewEl = document.querySelector(
-        '.story-previewer-preview_selected .story-previewer-title'
+    const selected = document.querySelector(
+        '.previewer_selected .story-previewer-title'
       ),
-      { height, lineHeight } = window.getComputedStyle(previewEl),
+      { height, lineHeight } = window.getComputedStyle(selected),
       lines = Math.floor(parseInt(height) / parseInt(lineHeight));
-    console.log(height, lineHeight, lines);
+
     if (lines > 3) {
       alert('Подпись должна быть не длиннее 3ех строчек');
       dispatch({ type: 'EDIT', name: 'title', value: lastValue });
@@ -40,6 +50,13 @@ export default function Previewer({}: {}) {
       lastValue = preview.title;
     }
   }, [preview && preview.title]);
+
+  useEffect(() => {
+    let selected = document.querySelector('.previewer_selected').outerHTML;
+    selected = selected.replace(/<button.*<\/button>/g, '');
+    console.log(selected);
+    setHtml(selected);
+  }, [preview]);
 
   return (
     <form>
@@ -75,6 +92,22 @@ export default function Previewer({}: {}) {
             tabIndex={-1}
           />
         </label>
+        <button
+          type='button'
+          className='form__btn'
+          onClick={() => handleGetString('json')}>
+          Скопировать как JSON
+        </button>
+        <button
+          type='button'
+          className='form__btn'
+          onClick={() => handleGetString('html')}>
+          Скопировать как HTML
+        </button>
+        <div className='form__textarea'>
+          <textarea id='form__json' value={JSON.stringify(preview)} readOnly />
+          <textarea id='form__html' value={html} readOnly />
+        </div>
       </div>
     </form>
   );

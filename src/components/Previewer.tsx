@@ -1,5 +1,6 @@
 import React, { MouseEvent } from 'react';
 import { PreviewerActionType, useAppDispatch } from '../reducers/previewers';
+import styles from './previewer.styles';
 
 export type PreviewerProps = {
   src: string;
@@ -29,9 +30,9 @@ export default function Previewer({
   return (
     <li
       className={
-        'story-previewer-preview' +
-        (selected ? ' story-previewer-preview_selected' : '')
+        'story-previewer-preview' + (selected ? ' previewer_selected' : '')
       }
+      style={styles['story-previewer-preview']}
       onClick={(e) => handleClick(e, { type: 'SELECT', select: index })}>
       <button
         className='previewer__btn previewer__btn_delete'
@@ -48,8 +49,19 @@ export default function Previewer({
         onClick={(e) => handleClick(e, { type: 'MOVE_RIGHT' })}>
         {'>'}
       </button>
-      {src && <img className='story-previewer-image' src={src} alt={alt} />}
-      <div className='story-previewer-title'>{title}</div>
+      {src && (
+        <img
+          className='story-previewer-image'
+          style={styles['story-previewer-image']}
+          src={src}
+          alt={alt}
+        />
+      )}
+      <div
+        className='story-previewer-title'
+        style={styles['story-previewer-title']}>
+        {title}
+      </div>
     </li>
   );
 }

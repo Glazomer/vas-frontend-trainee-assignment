@@ -2,67 +2,6 @@ body {
   font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 }
 
-.story-previewer-preview {
-  position: relative;
-  display: inline-block;
-  height: 188px;
-  width: 141px;
-  background: rgba(120, 120, 120, 0.2);
-  margin: 5px 10px;
-  border-radius: 13px;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.9;
-  }
-  &_ {
-    &selected {
-      margin: 0px 5px;
-      border: solid 5px rgba(0, 162, 255, 0.8);
-    }
-    &blank {
-      margin: 0px 5px;
-      border: dashed 5px rgba(0, 0, 0, 1);
-      &::after {
-        display: inline;
-        width: 100%;
-        content: '+';
-        text-align: center;
-        font-size: 141px;
-        font-weight: 100;
-        font-family: sans-serif;
-        position: absolute;
-      }
-    }
-  }
-}
-
-.story-previewer-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 8px;
-  width: 141px;
-  height: 188px;
-}
-
-.story-previewer-title {
-  position: absolute;
-  left: 0;
-  bottom: 16px;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0 11px 0 14px;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 21px;
-  color: #fff;
-  text-align: left;
-  white-space: pre-line;
-  word-wrap: break-word;
-  hyphens: auto;
-}
-
 .carousel-content {
   padding: 10px;
   position: relative;
@@ -83,6 +22,31 @@ body {
 }
 
 .previewer {
+  &:hover {
+    opacity: 0.9;
+  }
+  &_ {
+    &selected {
+      margin: 0px 5px;
+      // rgba(0, 162, 255, 0.8);
+      box-shadow: 0 0 5px 5px rgba(0, 170, 255, 0.3);
+    }
+    &blank {
+      margin: 5px;
+      box-sizing: border-box;
+      border: dashed 5px rgba(0, 0, 0, 1);
+      &::after {
+        display: inline;
+        width: 100%;
+        content: '+';
+        text-align: center;
+        font-size: 141px;
+        font-weight: 100;
+        font-family: sans-serif;
+        position: absolute;
+      }
+    }
+  }
   &__ {
     &btn {
       display: none;
@@ -93,7 +57,7 @@ body {
       cursor: pointer;
       outline: none;
       user-select: none;
-      .story-previewer-preview_selected:hover & {
+      .previewer_selected:hover & {
         display: block;
       }
       &_ {
@@ -150,6 +114,10 @@ body {
       border-radius: 3px;
       background-color: #0af;
       color: #fff;
+      border: none;
+      padding: 0;
+      margin: 0;
+      font-size: inherit;
       text-align: center;
       width: 100%;
       cursor: pointer;
@@ -159,6 +127,9 @@ body {
       &:active {
         background-color: #008ee0;
       }
+    }
+    &textarea {
+      grid-column: span 2;
     }
   }
 }
