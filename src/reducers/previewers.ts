@@ -4,11 +4,7 @@ import undoable from 'redux-undo';
 
 import { PreviewerProps } from '../components/Previewer';
 
-export type PreviewerType = {
-  src: string;
-  alt: string;
-  title: string;
-};
+export type PreviewerType = PreviewerProps;
 export type PreviewersState = {
   selected: number;
   previews: PreviewerType[];
@@ -47,9 +43,12 @@ const src =
     selected: 0,
     previews: [
       {
-        src,
         alt: 'Sellers image',
+        src,
+        href: '',
         title: 'Продают собствен­ники',
+        color1: '#E3E3E3',
+        color2: '#E3E3E3',
       },
     ],
   };
@@ -70,7 +69,14 @@ const reducer = function (
       };
     }
     case 'APPEND': {
-      const newPreview = { src: '', alt: 'preview ' + altId++, title: '' };
+      const newPreview = {
+        src: '',
+        alt: 'preview ' + altId++,
+        href: '',
+        title: '',
+        color1: '#E3E3E3',
+        color2: '#E3E3E3',
+      };
       return {
         selected: selected || 0,
         previews: [...previews, newPreview],

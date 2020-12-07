@@ -18,14 +18,17 @@ export default function Previewer({}: {}) {
     preview = previews[selected];
 
   const handleChange: InputChangeEvent = async ({ target }) => {
-    let { type, name, value } = target;
-    if (type === 'file') {
-      value = await FileReaderAsync(target.files[0]);
-      target.value = '';
-    }
-    // @ts-ignore
-    dispatch({ type: 'EDIT', name, value });
-  };
+      let { type, name, value } = target;
+      if (type === 'file') {
+        value = await FileReaderAsync(target.files[0]);
+        target.value = '';
+      }
+      // @ts-ignore
+      dispatch({ type: 'EDIT', name, value });
+    },
+    deleteSrc = () => {
+      dispatch({ type: 'EDIT', name: 'src', value: '' });
+    };
 
   const handleGetString = (format: 'json' | 'html') => {
     const el = document.getElementById(
@@ -54,44 +57,86 @@ export default function Previewer({}: {}) {
   useEffect(() => {
     let selected = document.querySelector('.previewer_selected').outerHTML;
     selected = selected.replace(/<button.*<\/button>/g, '');
-    console.log(selected);
+    if (preview.href.trim() !== '') {
+      selected = `<a href="${preview.href
+        .trim()
+        .replace(/"/g, '\\"')}">${selected}</a>`;
+    }
     setHtml(selected);
   }, [preview]);
 
   return (
     <form>
       <div className='form'>
-        <label htmlFor='title'>Выберете подпись:</label>
         <input
-          id='title'
           name='title'
           type='text'
-          placeholder='Подпись должна быть не длиннее 3ех строчек'
+          placeholder='Введите подпись не длиннее 3ех строчек'
           disabled={!(selected in previews)}
           value={preview && preview.title}
           onChange={handleChange}
+          className='form__input'
         />
-        <label htmlFor='alt'>Опишите картинку:</label>
         <input
-          id='alt'
           name='alt'
           type='text'
+          placeholder='Введите описание картинки (нужно если картинка не прогрузится)'
           disabled={!(selected in previews)}
           value={preview && preview.alt}
           onChange={handleChange}
+          className='form__input'
         />
-        <label className='form__btn' tabIndex={0}>
-          Выберете картинку
+        <input
+          name='href'
+          type='text'
+          placeholder='Введите cсылку для карточки или оставьте поле пустым'
+          disabled={!(selected in previews)}
+          value={preview && preview.href}
+          onChange={handleChange}
+          className='form__input'
+        />
+        <div className='form__file'>
+          <label className='form__btn' tabIndex={0}>
+            Выберете картинку
+            <input
+              name='src'
+              type='file'
+              disabled={!(selected in previews)}
+              onChange={handleChange}
+              style={{ opacity: 0, width: 0 }}
+              tabIndex={-1}
+            />
+          </label>
+          <button
+            type='button'
+            className='form__btn form__btn_delete'
+            onClick={deleteSrc}>
+            X
+          </button>
+        </div>
+        <div className='form__color'>
+          <label htmlFor='color1'>Color1:</label>
           <input
-            id='src'
-            name='src'
-            type='file'
+            type='color'
+            id='color1'
+            name='color1'
             disabled={!(selected in previews)}
+            value={preview && preview.color1}
             onChange={handleChange}
-            style={{ opacity: 0, width: 0 }}
-            tabIndex={-1}
+            className='form__color-input'
           />
-        </label>
+          <label htmlFor='color2'>Color2:</label>
+          <input
+            type='color'
+            id='color2'
+            name='color2'
+            disabled={!(selected in previews)}
+            value={preview && preview.color2}
+            onChange={handleChange}
+            className='form__color-input'
+          />
+        </div>
+        <hr />
         <button
           type='button'
           className='form__btn'
@@ -104,10 +149,20 @@ export default function Previewer({}: {}) {
           onClick={() => handleGetString('html')}>
           Скопировать как HTML
         </button>
-        <div className='form__textarea'>
-          <textarea id='form__json' value={JSON.stringify(preview)} readOnly />
-          <textarea id='form__html' value={html} readOnly />
-        </div>
+        <textarea
+          id='form__json'
+          className='form__input'
+          value={JSON.stringify(preview)}
+          rows={10}
+          readOnly
+        />
+        <textarea
+          id='form__html'
+          className='form__input'
+          value={html}
+          rows={10}
+          readOnly
+        />
       </div>
     </form>
   );

@@ -22,13 +22,14 @@ body {
 }
 
 .previewer {
+  user-select: none;
+  background: #e3e3e3;
   &:hover {
     opacity: 0.9;
   }
   &_ {
     &selected {
       margin: 0px 5px;
-      // rgba(0, 162, 255, 0.8);
       box-shadow: 0 0 5px 5px rgba(0, 170, 255, 0.3);
     }
     &blank {
@@ -79,15 +80,15 @@ body {
           width: 50px;
           height: 50px;
           top: calc(50% - 25px);
-          background: rgba(120, 120, 120, 0.2);
-          color: #4d4d4d;
+          background: rgba(30, 30, 30, 0.3);
+          color: #eeeeee;
           font-size: 43px;
           font-weight: 900;
           &:hover {
-            background: rgba(120, 120, 120, 0.4);
+            background: rgba(30, 30, 30, 0.6);
           }
           &:active {
-            background: rgba(120, 120, 120, 0.6);
+            background: rgba(30, 30, 30, 0.9);
           }
           &-left {
             left: -25px;
@@ -102,24 +103,50 @@ body {
 }
 
 .form {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 15px;
-  margin: 20px;
-  font-size: 24px;
+  margin: 20px 0px;
+  max-width: 400px;
+  padding: 15px;
+  font-size: 16px;
   user-select: none;
   &__ {
+    &input {
+      display: block;
+      width: 100%;
+      padding: 8px;
+      border: solid 2px #adadad;
+      border-radius: 3px;
+      margin: 15px 0px;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    &file {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+    &color {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      &-input {
+        width: 100%;
+      }
+    }
     &btn {
-      grid-column: span 2;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
       border-radius: 3px;
       background-color: #0af;
       color: #fff;
       border: none;
-      padding: 0;
-      margin: 0;
+      padding: 10px;
+      margin: 15px 0px;
       font-size: inherit;
       text-align: center;
-      width: 100%;
       cursor: pointer;
       &:hover {
         background-color: #009cf0;
@@ -127,9 +154,17 @@ body {
       &:active {
         background-color: #008ee0;
       }
-    }
-    &textarea {
-      grid-column: span 2;
+      &_ {
+        &delete {
+          background-color: #ef0000;
+          &:hover {
+            background-color: #df0000;
+          }
+          &:active {
+            background-color: #cf0000;
+          }
+        }
+      }
     }
   }
 }
