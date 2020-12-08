@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAppDispatch } from '../reducers/previewers';
 import FileReaderAsync from '../func/FileReaderAsync';
 import { toPng } from 'html-to-image';
+import execCopyCommand from '../func/execCopyCommand';
 
 import { PreviewerProps } from '../components/Previewer';
 
@@ -12,8 +13,7 @@ export type InputChangeEvent = (
 let lastValue = '';
 
 export default function ({ preview }: { preview: PreviewerProps | undefined }) {
-  const [html, setHtml] = useState(''),
-    dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const handleChange: InputChangeEvent = async ({ target }) => {
       let { type, name, value } = target;
@@ -29,12 +29,18 @@ export default function ({ preview }: { preview: PreviewerProps | undefined }) {
     };
 
   const handleGetString = (format: 'json' | 'html') => {
-    const el = document.getElementById(
-      'form__' + format
-    ) as HTMLTextAreaElement;
-    el.focus();
-    el.select();
-    document.execCommand('copy');
+    const selectedEl = document.querySelector(
+      '.previewer_selected .story-previewer-preview'
+    );
+    if (selectedEl) {
+      if (format === 'html') {
+        const html = selectedEl.outerHTML,
+          href = preview.href.trim().replace(/"/g, '\\"');
+        execCopyCommand(href ? `<a href="${href}">${html}</a>` : html);
+      } else {
+        execCopyCommand(JSON.stringify(preview || ''));
+      }
+    }
   };
 
   const handleDownloadPNG = async () => {
@@ -66,21 +72,6 @@ export default function ({ preview }: { preview: PreviewerProps | undefined }) {
       }
     }
   }, [preview && preview.title]);
-
-  useEffect(() => {
-    const selectedEl = document.querySelector(
-      '.previewer_selected .story-previewer-preview'
-    );
-    if (selectedEl) {
-      const selectedHtml = selectedEl.outerHTML,
-        href = preview.href.trim(),
-        anchor = (html: string) =>
-          `<a href="${href.replace(/"/g, '\\"')}">${html}</a>`;
-      setHtml(href ? anchor(selectedHtml) : selectedHtml);
-    } else {
-      setHtml('');
-    }
-  }, [preview]);
 
   return (
     <form>
@@ -170,20 +161,6 @@ export default function ({ preview }: { preview: PreviewerProps | undefined }) {
         <button type='button' className='form__btn' onClick={handleDownloadPNG}>
           Сохранить как PNG
         </button>
-        <textarea
-          id='form__json'
-          className='form__input'
-          value={JSON.stringify(preview || '')}
-          rows={10}
-          readOnly
-        />
-        <textarea
-          id='form__html'
-          className='form__input'
-          value={html}
-          rows={10}
-          readOnly
-        />
       </div>
     </form>
   );
