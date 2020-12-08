@@ -23,19 +23,18 @@ body {
 
 .previewer {
   user-select: none;
-  background: #e3e3e3;
+  margin: 5px 10px;
 }
 .previewer:hover {
   opacity: 0.9;
 }
 .previewer_selected {
-  margin: 0px 5px;
   box-shadow: 0 0 5px 5px rgba(0, 170, 255, 0.3);
 }
 .previewer_blank {
-  margin: 5px;
   box-sizing: border-box;
   border: dashed 5px black;
+  vertical-align: bottom;
 }
 .previewer_blank::after {
   display: inline;

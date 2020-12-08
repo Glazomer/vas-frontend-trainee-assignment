@@ -97,7 +97,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
 /* harmony import */ var _reducers_previewers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(50);
-/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(55);
+/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(66);
 
 
 
@@ -33618,13 +33618,13 @@ function Previewer(_a) {
         e.stopPropagation();
         dispatch(action);
     };
-    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: 'story-previewer-preview previewer' +
-            (selected ? ' previewer_selected' : ''), style: __assign(__assign({}, _previewer_styles__WEBPACK_IMPORTED_MODULE_2__["default"]['story-previewer-preview']), { background: background }), onClick: function (e) { return handleClick(e, { type: 'SELECT', select: index }); } },
+    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: 'previewer' + (selected ? ' previewer_selected' : ''), style: __assign(__assign({}, _previewer_styles__WEBPACK_IMPORTED_MODULE_2__["default"]['story-previewer-preview']), { background: background }), onClick: function (e) { return handleClick(e, { type: 'SELECT', select: index }); } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: 'previewer__btn previewer__btn_delete', onClick: function (e) { return handleClick(e, { type: 'DELETE' }); } }, "X"),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: 'previewer__btn previewer__btn_arrow previewer__btn_arrow-left', onClick: function (e) { return handleClick(e, { type: 'MOVE_LEFT' }); } }, '<'),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: 'previewer__btn previewer__btn_arrow previewer__btn_arrow-right', onClick: function (e) { return handleClick(e, { type: 'MOVE_RIGHT' }); } }, '>'),
-        src && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { className: 'story-previewer-image', style: _previewer_styles__WEBPACK_IMPORTED_MODULE_2__["default"]['story-previewer-image'], src: src, alt: alt })),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'story-previewer-title', style: _previewer_styles__WEBPACK_IMPORTED_MODULE_2__["default"]['story-previewer-title'] }, title)));
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { style: __assign(__assign({}, _previewer_styles__WEBPACK_IMPORTED_MODULE_2__["default"]['story-previewer-preview']), { background: background }), className: 'story-previewer-preview' },
+            src && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { className: 'story-previewer-image', style: _previewer_styles__WEBPACK_IMPORTED_MODULE_2__["default"]['story-previewer-image'], src: src, alt: alt })),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'story-previewer-title', style: _previewer_styles__WEBPACK_IMPORTED_MODULE_2__["default"]['story-previewer-title'] }, title))));
 }
 
 
@@ -33754,7 +33754,6 @@ var styles = {
         display: 'inline-block',
         height: '188px',
         width: '141px',
-        margin: '5px 10px',
         borderRadius: '13px',
         cursor: 'pointer',
     },
@@ -33806,7 +33805,7 @@ function Previewer(_a) {
         e.stopPropagation();
         dispatch(action);
     };
-    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: 'story-previewer-preview previewer_blank', onClick: function (e) { return handleClick(e, { type: 'APPEND' }); }, style: _previewer_styles__WEBPACK_IMPORTED_MODULE_2__["default"]['story-previewer-preview'] }));
+    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: 'previewer previewer_blank', onClick: function (e) { return handleClick(e, { type: 'APPEND' }); }, style: _previewer_styles__WEBPACK_IMPORTED_MODULE_2__["default"]['story-previewer-preview'] }));
 }
 
 
@@ -33822,6 +33821,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
 /* harmony import */ var _reducers_previewers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(50);
 /* harmony import */ var _func_FileReaderAsync__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(54);
+/* harmony import */ var html_to_image__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(55);
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -33862,6 +33862,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
+
 var lastValue = '';
 function Previewer(_a) {
     var _this = this;
@@ -33896,6 +33897,22 @@ function Previewer(_a) {
         el.select();
         document.execCommand('copy');
     };
+    var handleDownloadPNG = function () { return __awaiter(_this, void 0, void 0, function () {
+        var link, card, _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    link = document.createElement('a'), card = document.querySelector('.previewer_selected .story-previewer-preview');
+                    link.download = 'card.png';
+                    _a = link;
+                    return [4 /*yield*/, Object(html_to_image__WEBPACK_IMPORTED_MODULE_4__["toPng"])(card)];
+                case 1:
+                    _a.href = _b.sent();
+                    link.click();
+                    return [2 /*return*/];
+            }
+        });
+    }); };
     Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
         var selected = document.querySelector('.previewer_selected .story-previewer-title');
         if (selected) {
@@ -33910,9 +33927,9 @@ function Previewer(_a) {
         }
     }, [preview && preview.title]);
     Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-        var selectedEl = document.querySelector('.previewer_selected');
+        var selectedEl = document.querySelector('.previewer_selected .story-previewer-preview');
         if (selectedEl) {
-            var selectedHtml = selectedEl.outerHTML.replace(/<button.*<\/button>/g, ''), href_1 = preview.href.trim(), anchor = function (html) {
+            var selectedHtml = selectedEl.outerHTML, href_1 = preview.href.trim(), anchor = function (html) {
                 return "<a href=\"" + href_1.replace(/"/g, '\\"') + "\">" + html + "</a>";
             };
             setHtml(href_1 ? anchor(selectedHtml) : selectedHtml);
@@ -33939,6 +33956,7 @@ function Previewer(_a) {
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { type: 'button', className: 'form__btn', onClick: function () { return handleGetString('json'); } }, "\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043A\u0430\u043A JSON"),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { type: 'button', className: 'form__btn', onClick: function () { return handleGetString('html'); } }, "\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043A\u0430\u043A HTML"),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { type: 'button', className: 'form__btn', onClick: handleDownloadPNG }, "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u043A\u0430\u043A PNG"),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { id: 'form__json', className: 'form__input', value: JSON.stringify(preview || ''), rows: 10, readOnly: true }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { id: 'form__html', className: 'form__input', value: html, rows: 10, readOnly: true }))));
 }
@@ -33967,6 +33985,1104 @@ function FileReaderAsync(blob) {
 
 /***/ }),
 /* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toSvg", function() { return toSvg; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toSvgDataURL", function() { return toSvgDataURL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toCanvas", function() { return toCanvas; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toPixelData", function() { return toPixelData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toPng", function() { return toPng; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toJpeg", function() { return toJpeg; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toBlob", function() { return toBlob; });
+/* harmony import */ var _cloneNode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(56);
+/* harmony import */ var _embedImages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(60);
+/* harmony import */ var _embedWebFonts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(63);
+/* harmony import */ var _createSvgDataURL__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(64);
+/* harmony import */ var _applyStyleWithOptions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(65);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(58);
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+
+
+
+function getImageSize(domNode, options = {}) {
+    const width = options.width || Object(_util__WEBPACK_IMPORTED_MODULE_5__["getNodeWidth"])(domNode);
+    const height = options.height || Object(_util__WEBPACK_IMPORTED_MODULE_5__["getNodeHeight"])(domNode);
+    return { width, height };
+}
+function toSvg(domNode, options = {}) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { width, height } = getImageSize(domNode, options);
+        return Object(_cloneNode__WEBPACK_IMPORTED_MODULE_0__["cloneNode"])(domNode, options.filter, true)
+            .then((clonedNode) => Object(_embedWebFonts__WEBPACK_IMPORTED_MODULE_2__["embedWebFonts"])(clonedNode, options))
+            .then((clonedNode) => Object(_embedImages__WEBPACK_IMPORTED_MODULE_1__["embedImages"])(clonedNode, options))
+            .then((clonedNode) => Object(_applyStyleWithOptions__WEBPACK_IMPORTED_MODULE_4__["applyStyleWithOptions"])(clonedNode, options))
+            .then((clonedNode) => Object(_createSvgDataURL__WEBPACK_IMPORTED_MODULE_3__["createSvgDataURL"])(clonedNode, width, height));
+    });
+}
+const toSvgDataURL = toSvg;
+function toCanvas(domNode, options = {}) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return toSvg(domNode, options)
+            .then(_util__WEBPACK_IMPORTED_MODULE_5__["createImage"])
+            .then(Object(_util__WEBPACK_IMPORTED_MODULE_5__["delay"])(100))
+            .then((image) => {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            const ratio = options.pixelRatio || Object(_util__WEBPACK_IMPORTED_MODULE_5__["getPixelRatio"])();
+            const { width, height } = getImageSize(domNode, options);
+            canvas.width = width * ratio;
+            canvas.height = height * ratio;
+            canvas.style.width = `${width}`;
+            canvas.style.height = `${height}`;
+            if (options.backgroundColor) {
+                context.fillStyle = options.backgroundColor;
+                context.fillRect(0, 0, canvas.width, canvas.height);
+            }
+            context.drawImage(image, 0, 0);
+            return canvas;
+        });
+    });
+}
+function toPixelData(domNode, options = {}) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { width, height } = getImageSize(domNode, options);
+        return toCanvas(domNode, options).then((canvas) => {
+            const ctx = canvas.getContext('2d');
+            return ctx.getImageData(0, 0, width, height).data;
+        });
+    });
+}
+function toPng(domNode, options = {}) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return toCanvas(domNode, options).then((canvas) => canvas.toDataURL());
+    });
+}
+function toJpeg(domNode, options = {}) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return toCanvas(domNode, options).then((canvas) => canvas.toDataURL('image/jpeg', options.quality || 1));
+    });
+}
+function toBlob(domNode, options = {}) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return toCanvas(domNode, options).then(_util__WEBPACK_IMPORTED_MODULE_5__["canvasToBlob"]);
+    });
+}
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 56 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cloneNode", function() { return cloneNode; });
+/* harmony import */ var _clonePseudoElements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(57);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(58);
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function cloneSingleNode(node) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (node instanceof HTMLCanvasElement) {
+            const dataURL = node.toDataURL();
+            if (dataURL === 'data:,') {
+                return Promise.resolve(node.cloneNode(false));
+            }
+            return Object(_util__WEBPACK_IMPORTED_MODULE_1__["createImage"])(dataURL);
+        }
+        // if (node.tagName && node.tagName.toLowerCase() === 'svg') {
+        //   return Promise.resolve(node as SVGElement)
+        //     .then((svg) => svgToDataURL(svg))
+        //     .then(createImage)
+        // }
+        return Promise.resolve(node.cloneNode(false));
+    });
+}
+function cloneChildren(nativeNode, clonedNode, filter) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const children = Object(_util__WEBPACK_IMPORTED_MODULE_1__["toArray"])(nativeNode.childNodes);
+        if (children.length === 0) {
+            return Promise.resolve(clonedNode);
+        }
+        return children
+            .reduce((done, child) => done
+            .then(() => cloneNode(child, filter))
+            .then((clonedChild) => {
+            if (clonedChild) {
+                clonedNode.appendChild(clonedChild);
+            }
+        }), Promise.resolve())
+            .then(() => clonedNode);
+    });
+}
+function decorate(nativeNode, clonedNode) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (!(clonedNode instanceof Element)) {
+            return clonedNode;
+        }
+        return Promise.resolve()
+            .then(() => cloneCssStyle(nativeNode, clonedNode))
+            .then(() => Object(_clonePseudoElements__WEBPACK_IMPORTED_MODULE_0__["clonePseudoElements"])(nativeNode, clonedNode))
+            .then(() => cloneInputValue(nativeNode, clonedNode))
+            .then(() => clonedNode);
+    });
+}
+function cloneCssStyle(nativeNode, clonedNode) {
+    const source = window.getComputedStyle(nativeNode);
+    const target = clonedNode.style;
+    if (source.cssText) {
+        target.cssText = source.cssText;
+    }
+    else {
+        Object(_util__WEBPACK_IMPORTED_MODULE_1__["toArray"])(source).forEach((name) => {
+            target.setProperty(name, source.getPropertyValue(name), source.getPropertyPriority(name));
+        });
+    }
+}
+function cloneInputValue(nativeNode, clonedNode) {
+    if (nativeNode instanceof HTMLTextAreaElement) {
+        clonedNode.innerHTML = nativeNode.value;
+    }
+    if (nativeNode instanceof HTMLInputElement) {
+        clonedNode.setAttribute('value', nativeNode.value);
+    }
+}
+function cloneNode(nativeNode, filter, isRoot) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (!isRoot && filter && !filter(nativeNode)) {
+            return Promise.resolve(null);
+        }
+        return Promise.resolve(nativeNode)
+            .then(cloneSingleNode)
+            .then((clonedNode) => cloneChildren(nativeNode, clonedNode, filter))
+            .then((clonedNode) => decorate(nativeNode, clonedNode));
+    });
+}
+//# sourceMappingURL=cloneNode.js.map
+
+/***/ }),
+/* 57 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clonePseudoElements", function() { return clonePseudoElements; });
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(58);
+
+function clonePseudoElements(nativeNode, clonedNode) {
+    const pseudos = [':before', ':after'];
+    pseudos.forEach((pseudo) => Pseudo.clonePseudoElement(nativeNode, clonedNode, pseudo));
+}
+var Pseudo;
+(function (Pseudo) {
+    function clonePseudoElement(nativeNode, clonedNode, pseudo) {
+        const style = window.getComputedStyle(nativeNode, pseudo);
+        const content = style.getPropertyValue('content');
+        if (content === '' || content === 'none') {
+            return;
+        }
+        const className = Object(_util__WEBPACK_IMPORTED_MODULE_0__["uuid"])();
+        // fix: Cannot assign to read only property 'className' of object '#<…
+        try {
+            clonedNode.className = `${clonedNode.className} ${className}`;
+        }
+        catch (err) {
+            return;
+        }
+        const styleElement = document.createElement('style');
+        styleElement.appendChild(getPseudoElementStyle(className, pseudo, style));
+        clonedNode.appendChild(styleElement);
+    }
+    Pseudo.clonePseudoElement = clonePseudoElement;
+    function getPseudoElementStyle(className, pseudo, style) {
+        const selector = `.${className}:${pseudo}`;
+        const cssText = style.cssText
+            ? formatCssText(style)
+            : formatCssProperties(style);
+        return document.createTextNode(`${selector}{${cssText}}`);
+    }
+    function formatCssText(style) {
+        const content = style.getPropertyValue('content');
+        return `${style.cssText} content: ${content};`;
+    }
+    function formatCssProperties(style) {
+        return Object(_util__WEBPACK_IMPORTED_MODULE_0__["toArray"])(style)
+            .map((name) => {
+            const value = style.getPropertyValue(name);
+            const priority = style.getPropertyPriority(name);
+            return `${name}: ${value}${priority ? ' !important' : ''};`;
+        })
+            .join(' ');
+    }
+})(Pseudo || (Pseudo = {}));
+//# sourceMappingURL=clonePseudoElements.js.map
+
+/***/ }),
+/* 58 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uuid", function() { return uuid; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getExtension", function() { return getExtension; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMimeType", function() { return getMimeType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "delay", function() { return delay; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isDataUrl", function() { return isDataUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toDataURL", function() { return toDataURL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataURLContent", function() { return getDataURLContent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "canvasToBlob", function() { return canvasToBlob; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toArray", function() { return toArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNodeWidth", function() { return getNodeWidth; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNodeHeight", function() { return getNodeHeight; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPixelRatio", function() { return getPixelRatio; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createImage", function() { return createImage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "svgToDataURL", function() { return svgToDataURL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBlobFromImageURL", function() { return getBlobFromImageURL; });
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+const WOFF = 'application/font-woff';
+const JPEG = 'image/jpeg';
+const mimes = {
+    woff: WOFF,
+    woff2: WOFF,
+    ttf: 'application/font-truetype',
+    eot: 'application/vnd.ms-fontobject',
+    png: 'image/png',
+    jpg: JPEG,
+    jpeg: JPEG,
+    gif: 'image/gif',
+    tiff: 'image/tiff',
+    svg: 'image/svg+xml',
+};
+const uuid = (function uuid() {
+    // generate uuid for className of pseudo elements.
+    // We should not use GUIDs, otherwise pseudo elements sometimes cannot be captured.
+    let counter = 0;
+    // ref: http://stackoverflow.com/a/6248722/2519373
+    const random = () => `0000${((Math.random() * Math.pow(36, 4)) << 0).toString(36)}`.slice(-4);
+    return () => {
+        counter += 1;
+        return `u${random()}${counter}`;
+    };
+})();
+function getExtension(url) {
+    const match = /\.([^./]*?)$/g.exec(url);
+    return match ? match[1] : '';
+}
+function getMimeType(url) {
+    const ext = getExtension(url).toLowerCase();
+    return mimes[ext] || '';
+}
+function delay(ms) {
+    return (args) => new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(args);
+        }, ms);
+    });
+}
+function isDataUrl(url) {
+    return url.search(/^(data:)/) !== -1;
+}
+function toDataURL(content, mimeType) {
+    return `data:${mimeType};base64,${content}`;
+}
+function getDataURLContent(dataURL) {
+    return dataURL.split(/,/)[1];
+}
+function toBlob(canvas) {
+    return new Promise((resolve) => {
+        const binaryString = window.atob(canvas.toDataURL().split(',')[1]);
+        const len = binaryString.length;
+        const binaryArray = new Uint8Array(len);
+        for (let i = 0; i < len; i += 1) {
+            binaryArray[i] = binaryString.charCodeAt(i);
+        }
+        resolve(new Blob([binaryArray], { type: 'image/png' }));
+    });
+}
+function canvasToBlob(canvas) {
+    if (canvas.toBlob) {
+        return new Promise((resolve) => canvas.toBlob(resolve));
+    }
+    return toBlob(canvas);
+}
+function toArray(arrayLike) {
+    const result = [];
+    for (let i = 0, l = arrayLike.length; i < l; i += 1) {
+        result.push(arrayLike[i]);
+    }
+    return result;
+}
+function px(node, styleProperty) {
+    const val = window.getComputedStyle(node).getPropertyValue(styleProperty);
+    return parseFloat(val.replace('px', ''));
+}
+function getNodeWidth(node) {
+    const leftBorder = px(node, 'border-left-width');
+    const rightBorder = px(node, 'border-right-width');
+    return node.scrollWidth + leftBorder + rightBorder;
+}
+function getNodeHeight(node) {
+    const topBorder = px(node, 'border-top-width');
+    const bottomBorder = px(node, 'border-bottom-width');
+    return node.scrollHeight + topBorder + bottomBorder;
+}
+function getPixelRatio() {
+    let ratio;
+    const val = process && process.env ? process.env.devicePixelRatio : null;
+    if (val) {
+        ratio = parseInt(val, 10);
+        if (isNaN(ratio)) {
+            ratio = 1;
+        }
+    }
+    return ratio || window.devicePixelRatio || 1;
+}
+function createImage(url) {
+    return new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = reject;
+        image.crossOrigin = 'anonymous';
+        image.src = url;
+    });
+}
+function svgToDataURL(svg) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return Promise.resolve()
+            .then(() => new XMLSerializer().serializeToString(svg))
+            .then(encodeURIComponent)
+            .then((html) => `data:image/svg+xml;charset=utf-8,${html}`);
+    });
+}
+function getBlobFromImageURL(url) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return createImage(url).then((image) => {
+            const { width, height } = image;
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            const ratio = getPixelRatio();
+            canvas.width = width * ratio;
+            canvas.height = height * ratio;
+            canvas.style.width = `${width}`;
+            canvas.style.height = `${height}`;
+            context.scale(ratio, ratio);
+            context.drawImage(image, 0, 0);
+            const dataURL = canvas.toDataURL(getMimeType(url));
+            return getDataURLContent(dataURL);
+        });
+    });
+}
+//# sourceMappingURL=util.js.map
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(59)))
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports) {
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "embedImages", function() { return embedImages; });
+/* harmony import */ var _getBlobFromURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(61);
+/* harmony import */ var _embedResources__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(62);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(58);
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+
+function embedImages(clonedNode, options) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (!(clonedNode instanceof Element)) {
+            return Promise.resolve(clonedNode);
+        }
+        return Promise.resolve(clonedNode)
+            .then((node) => embedBackground(node, options))
+            .then((node) => embedImageNode(node, options))
+            .then((node) => embedChildren(node, options));
+    });
+}
+function embedBackground(clonedNode, options) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const background = clonedNode.style.getPropertyValue('background');
+        if (!background) {
+            return Promise.resolve(clonedNode);
+        }
+        return Promise.resolve(background)
+            .then((cssString) => Object(_embedResources__WEBPACK_IMPORTED_MODULE_1__["embedResources"])(cssString, null, options))
+            .then((cssString) => {
+            clonedNode.style.setProperty('background', cssString, clonedNode.style.getPropertyPriority('background'));
+            return clonedNode;
+        });
+    });
+}
+function embedImageNode(clonedNode, options) {
+    if (!(clonedNode instanceof HTMLImageElement) || Object(_util__WEBPACK_IMPORTED_MODULE_2__["isDataUrl"])(clonedNode.src)) {
+        return Promise.resolve(clonedNode);
+    }
+    return Promise.resolve(clonedNode.src)
+        .then((url) => Object(_getBlobFromURL__WEBPACK_IMPORTED_MODULE_0__["getBlobFromURL"])(url, options))
+        .then((data) => Object(_util__WEBPACK_IMPORTED_MODULE_2__["toDataURL"])(data, Object(_util__WEBPACK_IMPORTED_MODULE_2__["getMimeType"])(clonedNode.src)))
+        .then((dataURL) => new Promise((resolve, reject) => {
+        clonedNode.onload = resolve;
+        clonedNode.onerror = reject;
+        clonedNode.src = dataURL;
+    }))
+        .then(() => clonedNode, () => clonedNode);
+}
+function embedChildren(clonedNode, options) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const children = Object(_util__WEBPACK_IMPORTED_MODULE_2__["toArray"])(clonedNode.childNodes);
+        const deferreds = children.map((child) => embedImages(child, options));
+        return Promise.all(deferreds).then(() => clonedNode);
+    });
+}
+//# sourceMappingURL=embedImages.js.map
+
+/***/ }),
+/* 61 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBlobFromURL", function() { return getBlobFromURL; });
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(58);
+/* tslint:disable:max-line-length */
+
+// KNOWN ISSUE
+// -----------
+// Can not handle redirect-url, such as when access 'http://something.com/avatar.png'
+// will redirect to 'http://something.com/65fc2ffcc8aea7ba65a1d1feda173540'
+const TIMEOUT = 30000;
+const cache = [];
+function getBlobFromURL(url, options) {
+    const root = url.split('?')[0];
+    const found = cache.find((item) => item.url === root);
+    if (found) {
+        return found.promise;
+    }
+    // cache bypass so we dont have CORS issues with cached images
+    // ref: https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest#Bypassing_the_cache
+    if (options.cacheBust) {
+        // tslint:disable-next-line
+        url += (/\?/.test(url) ? '&' : '?') + new Date().getTime();
+    }
+    const failed = (reason) => {
+        let placeholder = '';
+        if (options.imagePlaceholder) {
+            const parts = options.imagePlaceholder.split(/,/);
+            if (parts && parts[1]) {
+                placeholder = parts[1];
+            }
+        }
+        let msg = `Failed to fetch resource: ${url}`;
+        if (reason) {
+            msg = typeof reason === 'string' ? reason : reason.message;
+        }
+        if (msg) {
+            console.error(msg);
+        }
+        return placeholder;
+    };
+    const deferred = window.fetch
+        ? window
+            .fetch(url)
+            .then((response) => response.blob())
+            .then((blob) => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        }))
+            .then(_util__WEBPACK_IMPORTED_MODULE_0__["getDataURLContent"])
+            .catch(() => new Promise((resolve, reject) => reject()))
+        : new Promise((resolve, reject) => {
+            const req = new XMLHttpRequest();
+            const timeout = () => {
+                reject(new Error(`Timeout of ${TIMEOUT}ms occured while fetching resource: ${url}`));
+            };
+            const done = () => {
+                if (req.readyState !== 4) {
+                    return;
+                }
+                if (req.status !== 200) {
+                    reject(new Error(`Failed to fetch resource: ${url}, status: ${req.status}`));
+                    return;
+                }
+                const encoder = new FileReader();
+                encoder.onloadend = () => {
+                    resolve(Object(_util__WEBPACK_IMPORTED_MODULE_0__["getDataURLContent"])(encoder.result));
+                };
+                encoder.readAsDataURL(req.response);
+            };
+            req.onreadystatechange = done;
+            req.ontimeout = timeout;
+            req.responseType = 'blob';
+            req.timeout = TIMEOUT;
+            req.open('GET', url, true);
+            req.send();
+        });
+    const promise = deferred.catch(failed);
+    cache.push({ promise, url: root });
+    return promise;
+}
+//# sourceMappingURL=getBlobFromURL.js.map
+
+/***/ }),
+/* 62 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shouldEmbed", function() { return shouldEmbed; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "embedResources", function() { return embedResources; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parseURLs", function() { return parseURLs; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "embed", function() { return embed; });
+/* harmony import */ var _getBlobFromURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(61);
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(58);
+
+
+const URL_REGEX = /url\((['"]?)([^'"]+?)\1\)/g;
+function shouldEmbed(string) {
+    return string.search(URL_REGEX) !== -1;
+}
+function embedResources(cssString, baseUrl, options) {
+    if (!shouldEmbed(cssString)) {
+        return Promise.resolve(cssString);
+    }
+    return Promise.resolve(cssString)
+        .then(parseURLs)
+        .then((urls) => urls.reduce((done, url) => done.then((ret) => embed(ret, url, baseUrl, options)), Promise.resolve(cssString)));
+}
+function parseURLs(str) {
+    const result = [];
+    str.replace(URL_REGEX, (raw, quotation, url) => {
+        result.push(url);
+        return raw;
+    });
+    return result.filter((url) => !Object(_util__WEBPACK_IMPORTED_MODULE_1__["isDataUrl"])(url));
+}
+function embed(cssString, resourceURL, baseURL, options, get) {
+    const resolvedURL = baseURL ? resolveUrl(resourceURL, baseURL) : resourceURL;
+    return Promise.resolve(resolvedURL)
+        .then((url) => (get ? get(url) : Object(_getBlobFromURL__WEBPACK_IMPORTED_MODULE_0__["getBlobFromURL"])(url, options)))
+        .then((data) => Object(_util__WEBPACK_IMPORTED_MODULE_1__["toDataURL"])(data, Object(_util__WEBPACK_IMPORTED_MODULE_1__["getMimeType"])(resourceURL)))
+        .then((dataURL) => cssString.replace(urlToRegex(resourceURL), `$1${dataURL}$3`))
+        .then((content) => content, () => resolvedURL);
+}
+function resolveUrl(url, baseUrl) {
+    // url is absolute already
+    if (url.match(/^[a-z]+:\/\//i)) {
+        return url;
+    }
+    // url is absolute already, without protocol
+    if (url.match(/^\/\//)) {
+        return window.location.protocol + url;
+    }
+    // dataURI, mailto:, tel:, etc.
+    if (url.match(/^[a-z]+:/i)) {
+        return url;
+    }
+    const doc = document.implementation.createHTMLDocument();
+    const base = doc.createElement('base');
+    const a = doc.createElement('a');
+    doc.head.appendChild(base);
+    doc.body.appendChild(a);
+    if (baseUrl) {
+        base.href = baseUrl;
+    }
+    a.href = url;
+    return a.href;
+}
+function urlToRegex(url) {
+    return new RegExp(`(url\\(['"]?)(${escape(url)})(['"]?\\))`, 'g');
+}
+function escape(url) {
+    return url.replace(/([.*+?^${}()|\[\]\/\\])/g, '\\$1');
+}
+//# sourceMappingURL=embedResources.js.map
+
+/***/ }),
+/* 63 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parseWebFontRules", function() { return parseWebFontRules; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "embedWebFonts", function() { return embedWebFonts; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCssRules", function() { return getCssRules; });
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(58);
+/* harmony import */ var _embedResources__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(62);
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+
+
+function parseWebFontRules(clonedNode) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return new Promise((resolve, reject) => {
+            if (!clonedNode.ownerDocument) {
+                reject(new Error('Provided element is not within a Document'));
+            }
+            resolve(Object(_util__WEBPACK_IMPORTED_MODULE_0__["toArray"])(clonedNode.ownerDocument.styleSheets));
+        })
+            .then(getCssRules)
+            .then(getWebFontRules);
+    });
+}
+function embedWebFonts(clonedNode, options) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return parseWebFontRules(clonedNode)
+            .then((rules) => Promise.all(rules.map((rule) => {
+            const baseUrl = rule.parentStyleSheet
+                ? rule.parentStyleSheet.href
+                : null;
+            return Object(_embedResources__WEBPACK_IMPORTED_MODULE_1__["embedResources"])(rule.cssText, baseUrl, options);
+        })))
+            .then((cssStrings) => cssStrings.join('\n'))
+            .then((cssString) => {
+            const styleNode = document.createElement('style');
+            const sytleContent = document.createTextNode(cssString);
+            styleNode.appendChild(sytleContent);
+            if (clonedNode.firstChild) {
+                clonedNode.insertBefore(styleNode, clonedNode.firstChild);
+            }
+            else {
+                clonedNode.appendChild(styleNode);
+            }
+            return clonedNode;
+        });
+    });
+}
+function getCssRules(styleSheets) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const ret = [];
+        const promises = [];
+        // First loop inlines imports
+        styleSheets.forEach((sheet) => {
+            if ('cssRules' in sheet) {
+                try {
+                    Object(_util__WEBPACK_IMPORTED_MODULE_0__["toArray"])(sheet.cssRules).forEach((item) => {
+                        if (item.type === CSSRule.IMPORT_RULE) {
+                            promises.push(fetchCSS(item.href, sheet)
+                                .then(embedFonts)
+                                .then((cssText) => {
+                                const parsed = parseCSS(cssText);
+                                parsed.forEach((rule) => {
+                                    sheet.insertRule(rule, sheet.cssRules.length);
+                                });
+                            })
+                                .catch((e) => {
+                                console.log('Error loading remote css', e.toString());
+                            }));
+                        }
+                    });
+                }
+                catch (e) {
+                    const inline = styleSheets.find((a) => a.href === null) || document.styleSheets[0];
+                    if (sheet.href != null) {
+                        promises.push(fetchCSS(sheet.href, inline)
+                            .then(embedFonts)
+                            .then((cssText) => {
+                            const parsed = parseCSS(cssText);
+                            parsed.forEach((rule) => {
+                                inline.insertRule(rule, sheet.cssRules.length);
+                            });
+                        })
+                            .catch((e) => {
+                            console.log('Error loading remote stylesheet', e.toString());
+                        }));
+                    }
+                    console.log('Error inlining remote css file', e.toString());
+                }
+            }
+        });
+        return Promise.all(promises).then(() => {
+            // Second loop parses rules
+            styleSheets.forEach((sheet) => {
+                if ('cssRules' in sheet) {
+                    try {
+                        Object(_util__WEBPACK_IMPORTED_MODULE_0__["toArray"])(sheet.cssRules).forEach((item) => {
+                            ret.push(item);
+                        });
+                    }
+                    catch (e) {
+                        console.log(`Error while reading CSS rules from ${sheet.href}`, e.toString());
+                    }
+                }
+            });
+            return ret;
+        });
+    });
+}
+function getWebFontRules(cssRules) {
+    return cssRules
+        .filter((rule) => rule.type === CSSRule.FONT_FACE_RULE)
+        .filter((rule) => Object(_embedResources__WEBPACK_IMPORTED_MODULE_1__["shouldEmbed"])(rule.style.getPropertyValue('src')));
+}
+function parseCSS(source) {
+    if (source === undefined) {
+        return [];
+    }
+    let cssText = source;
+    const css = [];
+    const cssKeyframeRegex = '((@.*?keyframes [\\s\\S]*?){([\\s\\S]*?}\\s*?)})';
+    const combinedCSSRegex = '((\\s*?(?:\\/\\*[\\s\\S]*?\\*\\/)?\\s*?@media[\\s\\S]' +
+        '*?){([\\s\\S]*?)}\\s*?})|(([\\s\\S]*?){([\\s\\S]*?)})'; // to match css & media queries together
+    const cssCommentsRegex = new RegExp('(\\/\\*[\\s\\S]*?\\*\\/)', 'gi');
+    // strip out comments
+    cssText = cssText.replace(cssCommentsRegex, '');
+    const keyframesRegex = new RegExp(cssKeyframeRegex, 'gi');
+    let arr;
+    while (true) {
+        arr = keyframesRegex.exec(cssText);
+        if (arr === null) {
+            break;
+        }
+        css.push(arr[0]);
+    }
+    cssText = cssText.replace(keyframesRegex, '');
+    // unified regex
+    const unified = new RegExp(combinedCSSRegex, 'gi');
+    while (true) {
+        arr = unified.exec(cssText);
+        if (arr === null) {
+            break;
+        }
+        css.push(arr[0]);
+    }
+    return css;
+}
+function fetchCSS(url, sheet) {
+    return fetch(url).then((res) => {
+        return {
+            url,
+            cssText: res.text(),
+        };
+    }, (e) => {
+        console.log('ERROR FETCHING CSS: ', e.toString());
+    });
+}
+function embedFonts(data) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return data.cssText.then((resolved) => {
+            let cssText = resolved;
+            const regexUrlFind = /url\(["']?([^"')]+)["']?\)/g;
+            const fontLocations = cssText.match(/url\([^)]+\)/g) || [];
+            const fontLoadedPromises = fontLocations.map((location) => {
+                let url = location.replace(regexUrlFind, '$1');
+                if (!url.startsWith('https://')) {
+                    const source = data.url;
+                    url = new URL(url, source).href;
+                }
+                return new Promise((resolve, reject) => {
+                    fetch(url)
+                        .then((res) => res.blob())
+                        .then((blob) => {
+                        const reader = new FileReader();
+                        reader.addEventListener('load', (res) => {
+                            // Side Effect
+                            cssText = cssText.replace(location, `url(${reader.result})`);
+                            resolve([location, reader.result]);
+                        });
+                        reader.readAsDataURL(blob);
+                    })
+                        .catch(reject);
+                });
+            });
+            return Promise.all(fontLoadedPromises).then(() => cssText);
+        });
+    });
+}
+//# sourceMappingURL=embedWebFonts.js.map
+
+/***/ }),
+/* 64 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSvgDataURL", function() { return createSvgDataURL; });
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(58);
+
+function createSvgDataURL(clonedNode, width, height) {
+    const xmlns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(xmlns, 'svg');
+    const foreignObject = document.createElementNS(xmlns, 'foreignObject');
+    svg.setAttributeNS('', 'width', `${width}`);
+    svg.setAttributeNS('', 'height', `${height}`);
+    foreignObject.setAttributeNS('', 'width', '100%');
+    foreignObject.setAttributeNS('', 'height', '100%');
+    foreignObject.setAttributeNS('', 'x', '0');
+    foreignObject.setAttributeNS('', 'y', '0');
+    foreignObject.setAttributeNS('', 'externalResourcesRequired', 'true');
+    svg.appendChild(foreignObject);
+    foreignObject.appendChild(clonedNode);
+    return Object(_util__WEBPACK_IMPORTED_MODULE_0__["svgToDataURL"])(svg);
+}
+//# sourceMappingURL=createSvgDataURL.js.map
+
+/***/ }),
+/* 65 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyStyleWithOptions", function() { return applyStyleWithOptions; });
+function applyStyleWithOptions(clonedNode, options) {
+    const { style } = clonedNode;
+    if (options.backgroundColor) {
+        style.backgroundColor = options.backgroundColor;
+    }
+    if (options.width) {
+        style.width = `${options.width}px`;
+    }
+    if (options.height) {
+        style.height = `${options.height}px`;
+    }
+    const manual = options.style;
+    if (manual != null) {
+        Object.keys(manual).forEach((key) => {
+            style[key] = manual[key];
+        });
+    }
+    return clonedNode;
+}
+//# sourceMappingURL=applyStyleWithOptions.js.map
+
+/***/ }),
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
