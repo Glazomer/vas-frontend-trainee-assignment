@@ -55,24 +55,6 @@ export default function ({ preview }: { preview: PreviewerProps | undefined }) {
     }
   };
 
-  useEffect(() => {
-    const selected = document.querySelector(
-      '.previewer_selected .story-previewer-title'
-    );
-
-    if (selected) {
-      const { height, lineHeight } = window.getComputedStyle(selected),
-        lines = Math.floor(parseInt(height) / parseInt(lineHeight));
-
-      if (lines > 3) {
-        alert('Подпись должна быть не длиннее 3ех строчек');
-        dispatch({ type: 'EDIT', name: 'title', value: lastValue });
-      } else {
-        lastValue = preview.title;
-      }
-    }
-  }, [preview && preview.title]);
-
   return (
     <form>
       <div className='form'>

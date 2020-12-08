@@ -24,6 +24,8 @@ const styles: { [key: string]: CSSProperties } = {
     left: '0',
     bottom: '16px',
     width: '100%',
+    maxHeight: '63px',
+    overflow: 'hidden',
     boxSizing: 'border-box',
     padding: '0 11px 0 14px',
     fontWeight: 700,
