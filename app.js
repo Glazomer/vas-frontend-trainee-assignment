@@ -30100,10 +30100,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(11);
-/* harmony import */ var _blocks_CarouselList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(48);
+/* harmony import */ var _components_CarouselList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(48);
 /* harmony import */ var _components_Previewer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(49);
 /* harmony import */ var _components_AddPreviewer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(55);
-/* harmony import */ var _blocks_Form__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(56);
+/* harmony import */ var _components_Form__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(56);
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -30124,10 +30124,10 @@ var __assign = (undefined && undefined.__assign) || function () {
 function App() {
     var _a = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) { return state; }), previews = _a.previews, selected = _a.selected;
     return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_CarouselList__WEBPACK_IMPORTED_MODULE_2__["default"], null,
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_CarouselList__WEBPACK_IMPORTED_MODULE_2__["default"], null,
             previews.map(function (props, i) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Previewer__WEBPACK_IMPORTED_MODULE_3__["default"], __assign({ key: i, index: i, selected: i === selected }, props))); }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_AddPreviewer__WEBPACK_IMPORTED_MODULE_4__["default"], null)),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_Form__WEBPACK_IMPORTED_MODULE_5__["default"], { preview: previews[selected] })));
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Form__WEBPACK_IMPORTED_MODULE_5__["default"], { preview: previews[selected] })));
 }
 
 
@@ -33620,9 +33620,9 @@ var __assign = (undefined && undefined.__assign) || function () {
     return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: 'previewer' + (selected ? ' previewer_selected' : ''), style: __assign(__assign({}, _previewer_styles__WEBPACK_IMPORTED_MODULE_2__["default"]['story-previewer-preview']), { background: background }), onClick: function (e) { return handleClick(e, { type: 'SELECT', select: index }); } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: 'previewer__btn previewer__btn_delete', onClick: function (e) { return handleClick(e, { type: 'DELETE' }); } },
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { alt: '\u2716', src: _media_cancel_svg__WEBPACK_IMPORTED_MODULE_5__["default"], className: 'previewer__btn_img' })),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: 'previewer__btn previewer__btn_arrow previewer__btn_arrow-left', onClick: function (e) { return handleClick(e, { type: 'MOVE_LEFT' }); } },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: 'previewer__btn previewer__btn_arrow previewer__btn_arrow-left', onClick: function (e) { return handleClick(e, { type: 'MOVE', step: -1 }); } },
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { alt: '\u2190', src: _media_left_svg__WEBPACK_IMPORTED_MODULE_3__["default"], className: 'previewer__btn_img' })),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: 'previewer__btn previewer__btn_arrow previewer__btn_arrow-right', onClick: function (e) { return handleClick(e, { type: 'MOVE_RIGHT' }); } },
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: 'previewer__btn previewer__btn_arrow previewer__btn_arrow-right', onClick: function (e) { return handleClick(e, { type: 'MOVE', step: 1 }); } },
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { alt: '\u2192', src: _media_right_svg__WEBPACK_IMPORTED_MODULE_4__["default"], className: 'previewer__btn_img' })),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { style: __assign(__assign({}, _previewer_styles__WEBPACK_IMPORTED_MODULE_2__["default"]['story-previewer-preview']), { background: background }), className: 'story-previewer-preview' },
             src && (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { className: 'story-previewer-image', style: _previewer_styles__WEBPACK_IMPORTED_MODULE_2__["default"]['story-previewer-image'], src: src, alt: alt })),
@@ -33661,7 +33661,8 @@ var __spreadArrays = (undefined && undefined.__spreadArrays) || function () {
 };
 
 
-var src = 'data:image/webp;base64,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', defaultState = {
+var src = 'data:image/webp;base64,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';
+var defaultState = {
     selected: 0,
     previews: [
         {
@@ -33676,9 +33677,9 @@ var src = 'data:image/webp;base64,UklGRsIRAABXRUJQVlA4ILYRAADwTQCdASq4APQAPkkijk
 };
 var altId = 1;
 var reducer = function (state, action) {
-    var _a;
     if (state === void 0) { state = defaultState; }
-    var selected = state.selected, previews = state.previews, preview = previews[selected];
+    var selected = state.selected, previews = state.previews;
+    var preview = previews[selected];
     switch (action.type) {
         case 'SELECT': {
             return __assign(__assign({}, state), { selected: action.select });
@@ -33702,8 +33703,7 @@ var reducer = function (state, action) {
                 !confirm('Are you sure to delete that card?')) {
                 return state;
             }
-            var newPreviews = __spreadArrays(previews);
-            newPreviews.splice(selected, 1);
+            var newPreviews = previews.filter(function (_, i) { return i !== selected; });
             var newSelected = selected;
             if (!(newSelected in newPreviews)) {
                 newSelected = newPreviews.length && newPreviews.length - 1;
@@ -33713,9 +33713,8 @@ var reducer = function (state, action) {
                 previews: newPreviews,
             };
         }
-        case 'MOVE_LEFT':
-        case 'MOVE_RIGHT': {
-            var newSelected = selected + (action.type === 'MOVE_LEFT' ? -1 : 1);
+        case 'MOVE': {
+            var newSelected = selected + action.step;
             if (newSelected in state.previews) {
                 var newPreviews = __spreadArrays(state.previews);
                 newPreviews.splice(newSelected, 0, newPreviews.splice(selected, 1)[0]);
@@ -33727,8 +33726,11 @@ var reducer = function (state, action) {
             return state;
         }
         case 'EDIT': {
-            var name_1 = action.name, value = action.value, newPreviews = __spreadArrays(previews);
-            newPreviews[selected] = __assign(__assign({}, newPreviews[selected]), (_a = {}, _a[name_1] = value, _a));
+            var name_1 = action.name, value_1 = action.value;
+            var newPreviews = previews.map(function (val, i) {
+                var _a;
+                return i === selected ? __assign(__assign({}, val), (_a = {}, _a[name_1] = value_1, _a)) : val;
+            });
             return {
                 selected: selected,
                 previews: newPreviews,
@@ -33845,7 +33847,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _reducers_previewers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(50);
-/* harmony import */ var _func_FileReaderAsync__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(57);
+/* harmony import */ var _func_fileReaderAsync__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(57);
 /* harmony import */ var html_to_image__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(58);
 /* harmony import */ var _func_execCopyCommand__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(69);
 /* harmony import */ var _media_cancel_svg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(54);
@@ -33891,21 +33893,21 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-var lastValue = '';
 /* harmony default export */ __webpack_exports__["default"] = (function (_a) {
     var _this = this;
     var preview = _a.preview;
     var dispatch = Object(_reducers_previewers__WEBPACK_IMPORTED_MODULE_1__["useAppDispatch"])();
-    var handleChange = function (_a) {
+    var handleInputChange = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(function (_a) {
         var target = _a.target;
         return __awaiter(_this, void 0, void 0, function () {
             var type, name, value;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        type = target.type, name = target.name, value = target.value;
+                        type = target.type, name = target.name;
+                        value = target.value;
                         if (!(type === 'file')) return [3 /*break*/, 2];
-                        return [4 /*yield*/, Object(_func_FileReaderAsync__WEBPACK_IMPORTED_MODULE_2__["default"])(target.files[0])];
+                        return [4 /*yield*/, Object(_func_fileReaderAsync__WEBPACK_IMPORTED_MODULE_2__["default"])(target.files[0])];
                     case 1:
                         value = _b.sent();
                         target.value = '';
@@ -33917,27 +33919,30 @@ var lastValue = '';
                 }
             });
         });
-    }, deleteSrc = function () {
+    }, [dispatch]);
+    var deleteSrc = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(function () {
         dispatch({ type: 'EDIT', name: 'src', value: '' });
-    };
-    var handleGetString = function (format) {
+    }, [dispatch]);
+    var handleGetString = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(function (format) {
         var selectedEl = document.querySelector('.previewer_selected .story-previewer-preview');
         if (selectedEl) {
             if (format === 'html') {
-                var html = selectedEl.outerHTML, href = preview.href.trim().replace(/"/g, '\\"');
+                var html = selectedEl.outerHTML;
+                var href = preview.href.trim().replace(/"/g, '\\"');
                 Object(_func_execCopyCommand__WEBPACK_IMPORTED_MODULE_4__["default"])(href ? "<a href=\"" + href + "\">" + html + "</a>" : html);
             }
             else {
                 Object(_func_execCopyCommand__WEBPACK_IMPORTED_MODULE_4__["default"])(JSON.stringify(preview || ''));
             }
         }
-    };
-    var handleDownloadPNG = function () { return __awaiter(_this, void 0, void 0, function () {
+    }, [preview]);
+    var handleDownloadPNG = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(function () { return __awaiter(_this, void 0, void 0, function () {
         var link, card, _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    link = document.createElement('a'), card = document.querySelector('.previewer_selected .story-previewer-preview');
+                    link = document.createElement('a');
+                    card = document.querySelector('.previewer_selected .story-previewer-preview');
                     if (!card) return [3 /*break*/, 2];
                     link.download = 'card.png';
                     _a = link;
@@ -33949,23 +33954,23 @@ var lastValue = '';
                 case 2: return [2 /*return*/];
             }
         });
-    }); };
+    }); }, []);
     return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null,
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'form' },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { name: 'title', type: 'text', placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u043E\u0434\u043F\u0438\u0441\u044C \u043D\u0435 \u0434\u043B\u0438\u043D\u043D\u0435\u0435 3\u0435\u0445 \u0441\u0442\u0440\u043E\u0447\u0435\u043A', disabled: !preview, value: preview && preview.title, onChange: handleChange, className: 'form__input' }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { name: 'alt', type: 'text', placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0438 (\u043D\u0443\u0436\u043D\u043E \u0435\u0441\u043B\u0438 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0430 \u043D\u0435 \u043F\u0440\u043E\u0433\u0440\u0443\u0437\u0438\u0442\u0441\u044F)', disabled: !preview, value: preview && preview.alt, onChange: handleChange, className: 'form__input' }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { name: 'href', type: 'text', placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 c\u0441\u044B\u043B\u043A\u0443 \u0434\u043B\u044F \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0438 \u0438\u043B\u0438 \u043E\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u043F\u043E\u043B\u0435 \u043F\u0443\u0441\u0442\u044B\u043C', disabled: !preview, value: preview && preview.href, onChange: handleChange, className: 'form__input' }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { name: 'title', type: 'text', placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u043E\u0434\u043F\u0438\u0441\u044C \u043D\u0435 \u0434\u043B\u0438\u043D\u043D\u0435\u0435 3 \u0441\u0442\u0440\u043E\u0447\u0435\u043A', disabled: !preview, value: preview && preview.title, onChange: handleInputChange, className: 'form__input' }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { name: 'alt', type: 'text', placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0438 (\u043D\u0443\u0436\u043D\u043E \u0435\u0441\u043B\u0438 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0430 \u043D\u0435 \u043F\u0440\u043E\u0433\u0440\u0443\u0437\u0438\u0442\u0441\u044F)', disabled: !preview, value: preview && preview.alt, onChange: handleInputChange, className: 'form__input' }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { name: 'href', type: 'text', placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 c\u0441\u044B\u043B\u043A\u0443 \u0434\u043B\u044F \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0438 \u0438\u043B\u0438 \u043E\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u043F\u043E\u043B\u0435 \u043F\u0443\u0441\u0442\u044B\u043C', disabled: !preview, value: preview && preview.href, onChange: handleInputChange, className: 'form__input' }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'form__file' },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", { className: 'form__btn', tabIndex: 0 },
-                    "\u0412\u044B\u0431\u0435\u0440\u0435\u0442\u0435 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0443",
-                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { name: 'src', type: 'file', disabled: !preview, onChange: handleChange, style: { opacity: 0, width: 0 }, tabIndex: -1 })),
+                    "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0443",
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { name: 'src', type: 'file', disabled: !preview, onChange: handleInputChange, style: { opacity: 0, width: 0 }, tabIndex: -1 })),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { type: 'button', className: 'form__btn form__btn_delete', disabled: !preview, onClick: deleteSrc },
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", { alt: 'X', src: _media_cancel_svg__WEBPACK_IMPORTED_MODULE_5__["default"], className: 'form__btn_img' }))),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'form__color' },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", { htmlFor: 'color1' }, "Color1:"),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: 'color', id: 'color1', name: 'color1', disabled: !preview, value: preview && preview.color1, onChange: handleChange, className: 'form__color-input' }),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: 'color', id: 'color1', name: 'color1', disabled: !preview, value: preview && preview.color1, onChange: handleInputChange, className: 'form__color-input' }),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", { htmlFor: 'color2' }, "Color2:"),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: 'color', id: 'color2', name: 'color2', disabled: !preview, value: preview && preview.color2, onChange: handleChange, className: 'form__color-input' })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: 'color', id: 'color2', name: 'color2', disabled: !preview, value: preview && preview.color2, onChange: handleInputChange, className: 'form__color-input' })),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { type: 'button', className: 'form__btn', onClick: function () { return handleGetString('json'); } }, "\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043A\u0430\u043A JSON"),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { type: 'button', className: 'form__btn', onClick: function () { return handleGetString('html'); } }, "\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043A\u0430\u043A HTML"),
@@ -33979,8 +33984,7 @@ var lastValue = '';
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return FileReaderAsync; });
-function FileReaderAsync(blob) {
+/* harmony default export */ __webpack_exports__["default"] = (function (blob) {
     return new Promise(function (resolve, reject) {
         var reader = new FileReader();
         reader.readAsDataURL(blob);
@@ -33991,7 +33995,7 @@ function FileReaderAsync(blob) {
         };
         reader.onerror = function (error) { return reject(error); };
     });
-}
+});
 
 
 /***/ }),
