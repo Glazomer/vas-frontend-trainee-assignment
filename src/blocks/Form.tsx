@@ -41,28 +41,36 @@ export default function Previewer({}: {}) {
 
   useEffect(() => {
     const selected = document.querySelector(
-        '.previewer_selected .story-previewer-title'
-      ),
-      { height, lineHeight } = window.getComputedStyle(selected),
-      lines = Math.floor(parseInt(height) / parseInt(lineHeight));
+      '.previewer_selected .story-previewer-title'
+    );
 
-    if (lines > 3) {
-      alert('Подпись должна быть не длиннее 3ех строчек');
-      dispatch({ type: 'EDIT', name: 'title', value: lastValue });
-    } else {
-      lastValue = preview.title;
+    if (selected) {
+      const { height, lineHeight } = window.getComputedStyle(selected),
+        lines = Math.floor(parseInt(height) / parseInt(lineHeight));
+
+      if (lines > 3) {
+        alert('Подпись должна быть не длиннее 3ех строчек');
+        dispatch({ type: 'EDIT', name: 'title', value: lastValue });
+      } else {
+        lastValue = preview.title;
+      }
     }
   }, [preview && preview.title]);
 
   useEffect(() => {
-    let selected = document.querySelector('.previewer_selected').outerHTML;
-    selected = selected.replace(/<button.*<\/button>/g, '');
-    if (preview.href.trim() !== '') {
-      selected = `<a href="${preview.href
-        .trim()
-        .replace(/"/g, '\\"')}">${selected}</a>`;
+    const selectedEl = document.querySelector('.previewer_selected');
+    if (selectedEl) {
+      const selectedHtml = selectedEl.outerHTML.replace(
+          /<button.*<\/button>/g,
+          ''
+        ),
+        href = preview.href.trim(),
+        anchor = (html: string) =>
+          `<a href="${href.replace(/"/g, '\\"')}">${html}</a>`;
+      setHtml(href ? anchor(selectedHtml) : selectedHtml);
+    } else {
+      setHtml('');
     }
-    setHtml(selected);
   }, [preview]);
 
   return (
@@ -110,6 +118,7 @@ export default function Previewer({}: {}) {
           <button
             type='button'
             className='form__btn form__btn_delete'
+            disabled={!(selected in previews)}
             onClick={deleteSrc}>
             X
           </button>
@@ -152,7 +161,7 @@ export default function Previewer({}: {}) {
         <textarea
           id='form__json'
           className='form__input'
-          value={JSON.stringify(preview)}
+          value={JSON.stringify(preview || '')}
           rows={10}
           readOnly
         />

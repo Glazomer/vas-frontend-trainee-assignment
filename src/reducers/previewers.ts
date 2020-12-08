@@ -1,6 +1,5 @@
 import { createStore } from 'redux';
 import { useDispatch } from 'react-redux';
-import undoable from 'redux-undo';
 
 import { PreviewerProps } from '../components/Previewer';
 
