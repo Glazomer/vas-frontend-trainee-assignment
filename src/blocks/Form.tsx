@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { PreviewersState, useAppDispatch } from '../reducers/previewers';
+import { useAppDispatch } from '../reducers/previewers';
 import FileReaderAsync from '../func/FileReaderAsync';
 import { toPng } from 'html-to-image';
+
+import { PreviewerProps } from '../components/Previewer';
 
 export type InputChangeEvent = (
   event: React.ChangeEvent<HTMLInputElement>
@@ -10,13 +11,9 @@ export type InputChangeEvent = (
 
 let lastValue = '';
 
-export default function Previewer({}: {}) {
+export default function ({ preview }: { preview: PreviewerProps | undefined }) {
   const [html, setHtml] = useState(''),
-    dispatch = useAppDispatch(),
-    { selected, previews } = useSelector<PreviewersState, PreviewersState>(
-      (state) => state
-    ),
-    preview = previews[selected];
+    dispatch = useAppDispatch();
 
   const handleChange: InputChangeEvent = async ({ target }) => {
       let { type, name, value } = target;
@@ -45,9 +42,11 @@ export default function Previewer({}: {}) {
       card = document.querySelector(
         '.previewer_selected .story-previewer-preview'
       );
-    link.download = 'card.png';
-    link.href = await toPng(card as HTMLElement);
-    link.click();
+    if (card) {
+      link.download = 'card.png';
+      link.href = await toPng(card as HTMLElement);
+      link.click();
+    }
   };
 
   useEffect(() => {
@@ -90,7 +89,7 @@ export default function Previewer({}: {}) {
           name='title'
           type='text'
           placeholder='Введите подпись не длиннее 3ех строчек'
-          disabled={!(selected in previews)}
+          disabled={!preview}
           value={preview && preview.title}
           onChange={handleChange}
           className='form__input'
@@ -99,7 +98,7 @@ export default function Previewer({}: {}) {
           name='alt'
           type='text'
           placeholder='Введите описание картинки (нужно если картинка не прогрузится)'
-          disabled={!(selected in previews)}
+          disabled={!preview}
           value={preview && preview.alt}
           onChange={handleChange}
           className='form__input'
@@ -108,7 +107,7 @@ export default function Previewer({}: {}) {
           name='href'
           type='text'
           placeholder='Введите cсылку для карточки или оставьте поле пустым'
-          disabled={!(selected in previews)}
+          disabled={!preview}
           value={preview && preview.href}
           onChange={handleChange}
           className='form__input'
@@ -119,7 +118,7 @@ export default function Previewer({}: {}) {
             <input
               name='src'
               type='file'
-              disabled={!(selected in previews)}
+              disabled={!preview}
               onChange={handleChange}
               style={{ opacity: 0, width: 0 }}
               tabIndex={-1}
@@ -128,7 +127,7 @@ export default function Previewer({}: {}) {
           <button
             type='button'
             className='form__btn form__btn_delete'
-            disabled={!(selected in previews)}
+            disabled={!preview}
             onClick={deleteSrc}>
             X
           </button>
@@ -139,7 +138,7 @@ export default function Previewer({}: {}) {
             type='color'
             id='color1'
             name='color1'
-            disabled={!(selected in previews)}
+            disabled={!preview}
             value={preview && preview.color1}
             onChange={handleChange}
             className='form__color-input'
@@ -149,7 +148,7 @@ export default function Previewer({}: {}) {
             type='color'
             id='color2'
             name='color2'
-            disabled={!(selected in previews)}
+            disabled={!preview}
             value={preview && preview.color2}
             onChange={handleChange}
             className='form__color-input'

@@ -5,7 +5,7 @@ import styles from './previewer.styles';
 
 export type HandleClick = (e: MouseEvent, action: PreviewerActionType) => void;
 
-export default function Previewer({}: {}) {
+export default function ({}: {}) {
   const dispatch = useDispatch();
   const handleClick: HandleClick = (e, action) => {
     e.stopPropagation();

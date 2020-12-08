@@ -18,7 +18,7 @@ type ContainerProps = {
 
 export type HandleClick = (e: MouseEvent, action: PreviewerActionType) => void;
 
-export default function Previewer({
+export default function ({
   selected,
   color1,
   color2,

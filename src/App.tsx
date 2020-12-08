@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import CarouselList from './blocks/CarouselList';
@@ -13,11 +13,6 @@ export default function App() {
     (state) => state
   );
 
-  // useEffect(
-  //   () =>
-  //     (window.onbeforeunload = () => 'Are you sure you want to navigate away?'),
-  //   []
-  // );
   return (
     <>
       <CarouselList>
@@ -26,7 +21,7 @@ export default function App() {
         ))}
         <AddPreviewer />
       </CarouselList>
-      <Form />
+      <Form preview={previews[selected]} />
     </>
   );
 }
