@@ -1,4 +1,4 @@
-export default function FileReaderAsync(blob: Blob): Promise<string> {
+export default function (blob: Blob): Promise<string> {
   return new Promise(function (resolve, reject) {
     const reader = new FileReader();
     reader.readAsDataURL(blob);

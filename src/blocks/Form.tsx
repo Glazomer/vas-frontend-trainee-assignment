@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppDispatch } from '../reducers/previewers';
-import FileReaderAsync from '../func/FileReaderAsync';
+import fileReaderAsync from '../func/fileReaderAsync';
 import { toPng } from 'html-to-image';
 import execCopyCommand from '../func/execCopyCommand';
 
@@ -12,23 +12,22 @@ export type InputChangeEvent = (
   event: React.ChangeEvent<HTMLInputElement>
 ) => void;
 
-let lastValue = '';
-
 export default function ({ preview }: { preview: PreviewerProps | undefined }) {
   const dispatch = useAppDispatch();
 
   const handleChange: InputChangeEvent = async ({ target }) => {
-      let { type, name, value } = target;
-      if (type === 'file') {
-        value = await FileReaderAsync(target.files[0]);
-        target.value = '';
-      }
-      // @ts-ignore
-      dispatch({ type: 'EDIT', name, value });
-    },
-    deleteSrc = () => {
-      dispatch({ type: 'EDIT', name: 'src', value: '' });
-    };
+    const { type, name } = target;
+    let { value } = target;
+    if (type === 'file') {
+      value = await fileReaderAsync(target.files[0]);
+      target.value = '';
+    }
+    // @ts-ignore
+    dispatch({ type: 'EDIT', name, value });
+  };
+  const deleteSrc = () => {
+    dispatch({ type: 'EDIT', name: 'src', value: '' });
+  };
 
   const handleGetString = (format: 'json' | 'html') => {
     const selectedEl = document.querySelector(
@@ -36,8 +35,8 @@ export default function ({ preview }: { preview: PreviewerProps | undefined }) {
     );
     if (selectedEl) {
       if (format === 'html') {
-        const html = selectedEl.outerHTML,
-          href = preview.href.trim().replace(/"/g, '\\"');
+        const html = selectedEl.outerHTML;
+        const href = preview.href.trim().replace(/"/g, '\\"');
         execCopyCommand(href ? `<a href="${href}">${html}</a>` : html);
       } else {
         execCopyCommand(JSON.stringify(preview || ''));
@@ -46,10 +45,10 @@ export default function ({ preview }: { preview: PreviewerProps | undefined }) {
   };
 
   const handleDownloadPNG = async () => {
-    const link = document.createElement('a'),
-      card = document.querySelector(
-        '.previewer_selected .story-previewer-preview'
-      );
+    const link = document.createElement('a');
+    const card = document.querySelector(
+      '.previewer_selected .story-previewer-preview'
+    );
     if (card) {
       link.download = 'card.png';
       link.href = await toPng(card as HTMLElement);
