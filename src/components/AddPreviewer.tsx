@@ -13,7 +13,7 @@ export default function Previewer({}: {}) {
   };
   return (
     <li
-      className={'story-previewer-preview previewer_blank'}
+      className={'previewer previewer_blank'}
       onClick={(e) => handleClick(e, { type: 'APPEND' })}
       style={styles['story-previewer-preview']}></li>
   );

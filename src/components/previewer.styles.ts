@@ -6,7 +6,6 @@ const styles: { [key: string]: CSSProperties } = {
     display: 'inline-block',
     height: '188px',
     width: '141px',
-    margin: '5px 10px',
     borderRadius: '13px',
     cursor: 'pointer',
   },

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { PreviewersState, useAppDispatch } from '../reducers/previewers';
 import FileReaderAsync from '../func/FileReaderAsync';
+import { toPng } from 'html-to-image';
 
 export type InputChangeEvent = (
   event: React.ChangeEvent<HTMLInputElement>
@@ -39,6 +40,16 @@ export default function Previewer({}: {}) {
     document.execCommand('copy');
   };
 
+  const handleDownloadPNG = async () => {
+    const link = document.createElement('a'),
+      card = document.querySelector(
+        '.previewer_selected .story-previewer-preview'
+      );
+    link.download = 'card.png';
+    link.href = await toPng(card as HTMLElement);
+    link.click();
+  };
+
   useEffect(() => {
     const selected = document.querySelector(
       '.previewer_selected .story-previewer-title'
@@ -58,12 +69,11 @@ export default function Previewer({}: {}) {
   }, [preview && preview.title]);
 
   useEffect(() => {
-    const selectedEl = document.querySelector('.previewer_selected');
+    const selectedEl = document.querySelector(
+      '.previewer_selected .story-previewer-preview'
+    );
     if (selectedEl) {
-      const selectedHtml = selectedEl.outerHTML.replace(
-          /<button.*<\/button>/g,
-          ''
-        ),
+      const selectedHtml = selectedEl.outerHTML,
         href = preview.href.trim(),
         anchor = (html: string) =>
           `<a href="${href.replace(/"/g, '\\"')}">${html}</a>`;
@@ -157,6 +167,9 @@ export default function Previewer({}: {}) {
           className='form__btn'
           onClick={() => handleGetString('html')}>
           Скопировать как HTML
+        </button>
+        <button type='button' className='form__btn' onClick={handleDownloadPNG}>
+          Сохранить как PNG
         </button>
         <textarea
           id='form__json'

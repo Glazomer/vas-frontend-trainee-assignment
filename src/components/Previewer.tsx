@@ -37,10 +37,7 @@ export default function Previewer({
 
   return (
     <li
-      className={
-        'story-previewer-preview previewer' +
-        (selected ? ' previewer_selected' : '')
-      }
+      className={'previewer' + (selected ? ' previewer_selected' : '')}
       style={{ ...styles['story-previewer-preview'], background }}
       onClick={(e) => handleClick(e, { type: 'SELECT', select: index })}>
       <button
@@ -58,18 +55,22 @@ export default function Previewer({
         onClick={(e) => handleClick(e, { type: 'MOVE_RIGHT' })}>
         {'>'}
       </button>
-      {src && (
-        <img
-          className='story-previewer-image'
-          style={styles['story-previewer-image']}
-          src={src}
-          alt={alt}
-        />
-      )}
       <div
-        className='story-previewer-title'
-        style={styles['story-previewer-title']}>
-        {title}
+        style={{ ...styles['story-previewer-preview'], background }}
+        className='story-previewer-preview'>
+        {src && (
+          <img
+            className='story-previewer-image'
+            style={styles['story-previewer-image']}
+            src={src}
+            alt={alt}
+          />
+        )}
+        <div
+          className='story-previewer-title'
+          style={styles['story-previewer-title']}>
+          {title}
+        </div>
       </div>
     </li>
   );

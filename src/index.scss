@@ -23,19 +23,18 @@ body {
 
 .previewer {
   user-select: none;
-  background: #e3e3e3;
+  margin: 5px 10px;
   &:hover {
     opacity: 0.9;
   }
   &_ {
     &selected {
-      margin: 0px 5px;
       box-shadow: 0 0 5px 5px rgba(0, 170, 255, 0.3);
     }
     &blank {
-      margin: 5px;
       box-sizing: border-box;
       border: dashed 5px rgba(0, 0, 0, 1);
+      vertical-align: bottom;
       &::after {
         display: inline;
         width: 100%;
