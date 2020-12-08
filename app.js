@@ -30123,6 +30123,11 @@ var __assign = (undefined && undefined.__assign) || function () {
 
 function App() {
     var _a = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(function (state) { return state; }), previews = _a.previews, selected = _a.selected;
+    // useEffect(
+    //   () =>
+    //     (window.onbeforeunload = () => 'Are you sure you want to navigate away?'),
+    //   []
+    // );
     return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null,
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_blocks_CarouselList__WEBPACK_IMPORTED_MODULE_2__["default"], null,
             previews.map(function (props, i) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Previewer__WEBPACK_IMPORTED_MODULE_3__["default"], __assign({ key: i, index: i, selected: i === selected }, props))); }),
@@ -33591,17 +33596,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _reducers_previewers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(50);
 /* harmony import */ var _previewer_styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(51);
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 
 
 
 function Previewer(_a) {
-    var selected = _a.selected, index = _a.index, title = _a.title, src = _a.src, alt = _a.alt;
+    var selected = _a.selected, color1 = _a.color1, color2 = _a.color2, index = _a.index, title = _a.title, src = _a.src, alt = _a.alt;
+    var background = "linear-gradient(" + color1 + ", " + color2 + ")";
     var dispatch = Object(_reducers_previewers__WEBPACK_IMPORTED_MODULE_1__["useAppDispatch"])();
     var handleClick = function (e, action) {
         e.stopPropagation();
         dispatch(action);
     };
-    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: 'story-previewer-preview' + (selected ? ' previewer_selected' : ''), style: _previewer_styles__WEBPACK_IMPORTED_MODULE_2__["default"]['story-previewer-preview'], onClick: function (e) { return handleClick(e, { type: 'SELECT', select: index }); } },
+    return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", { className: 'story-previewer-preview previewer' +
+            (selected ? ' previewer_selected' : ''), style: __assign(__assign({}, _previewer_styles__WEBPACK_IMPORTED_MODULE_2__["default"]['story-previewer-preview']), { background: background }), onClick: function (e) { return handleClick(e, { type: 'SELECT', select: index }); } },
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: 'previewer__btn previewer__btn_delete', onClick: function (e) { return handleClick(e, { type: 'DELETE' }); } }, "X"),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: 'previewer__btn previewer__btn_arrow previewer__btn_arrow-left', onClick: function (e) { return handleClick(e, { type: 'MOVE_LEFT' }); } }, '<'),
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { className: 'previewer__btn previewer__btn_arrow previewer__btn_arrow-right', onClick: function (e) { return handleClick(e, { type: 'MOVE_RIGHT' }); } }, '>'),
@@ -33645,9 +33663,12 @@ var src = 'data:image/webp;base64,UklGRsIRAABXRUJQVlA4ILYRAADwTQCdASq4APQAPkkijk
     selected: 0,
     previews: [
         {
-            src: src,
             alt: 'Sellers image',
+            src: src,
+            href: '',
             title: 'Продают собствен­ники',
+            color1: '#E3E3E3',
+            color2: '#E3E3E3',
         },
     ],
 };
@@ -33661,7 +33682,14 @@ var reducer = function (state, action) {
             return __assign(__assign({}, state), { selected: action.select });
         }
         case 'APPEND': {
-            var newPreview = { src: '', alt: 'preview ' + altId++, title: '' };
+            var newPreview = {
+                src: '',
+                alt: 'preview ' + altId++,
+                href: '',
+                title: '',
+                color1: '#E3E3E3',
+                color2: '#E3E3E3',
+            };
             return {
                 selected: selected || 0,
                 previews: __spreadArrays(previews, [newPreview]),
@@ -33726,7 +33754,6 @@ var styles = {
         display: 'inline-block',
         height: '188px',
         width: '141px',
-        background: 'rgba(120, 120, 120, 0.2)',
         margin: '5px 10px',
         borderRadius: '13px',
         cursor: 'pointer',
@@ -33860,6 +33887,8 @@ function Previewer(_a) {
                 }
             });
         });
+    }, deleteSrc = function () {
+        dispatch({ type: 'EDIT', name: 'src', value: '' });
     };
     var handleGetString = function (format) {
         var el = document.getElementById('form__' + format);
@@ -33880,23 +33909,33 @@ function Previewer(_a) {
     Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
         var selected = document.querySelector('.previewer_selected').outerHTML;
         selected = selected.replace(/<button.*<\/button>/g, '');
-        console.log(selected);
+        if (preview.href.trim() !== '') {
+            selected = "<a href=\"" + preview.href
+                .trim()
+                .replace(/"/g, '\\"') + "\">" + selected + "</a>";
+        }
         setHtml(selected);
     }, [preview]);
     return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null,
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'form' },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", { htmlFor: 'title' }, "\u0412\u044B\u0431\u0435\u0440\u0435\u0442\u0435 \u043F\u043E\u0434\u043F\u0438\u0441\u044C:"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { id: 'title', name: 'title', type: 'text', placeholder: '\u041F\u043E\u0434\u043F\u0438\u0441\u044C \u0434\u043E\u043B\u0436\u043D\u0430 \u0431\u044B\u0442\u044C \u043D\u0435 \u0434\u043B\u0438\u043D\u043D\u0435\u0435 3\u0435\u0445 \u0441\u0442\u0440\u043E\u0447\u0435\u043A', disabled: !(selected in previews), value: preview && preview.title, onChange: handleChange }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", { htmlFor: 'alt' }, "\u041E\u043F\u0438\u0448\u0438\u0442\u0435 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0443:"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { id: 'alt', name: 'alt', type: 'text', disabled: !(selected in previews), value: preview && preview.alt, onChange: handleChange }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", { className: 'form__btn', tabIndex: 0 },
-                "\u0412\u044B\u0431\u0435\u0440\u0435\u0442\u0435 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0443",
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { id: 'src', name: 'src', type: 'file', disabled: !(selected in previews), onChange: handleChange, style: { opacity: 0, width: 0 }, tabIndex: -1 })),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { name: 'title', type: 'text', placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043F\u043E\u0434\u043F\u0438\u0441\u044C \u043D\u0435 \u0434\u043B\u0438\u043D\u043D\u0435\u0435 3\u0435\u0445 \u0441\u0442\u0440\u043E\u0447\u0435\u043A', disabled: !(selected in previews), value: preview && preview.title, onChange: handleChange, className: 'form__input' }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { name: 'alt', type: 'text', placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0438 (\u043D\u0443\u0436\u043D\u043E \u0435\u0441\u043B\u0438 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0430 \u043D\u0435 \u043F\u0440\u043E\u0433\u0440\u0443\u0437\u0438\u0442\u0441\u044F)', disabled: !(selected in previews), value: preview && preview.alt, onChange: handleChange, className: 'form__input' }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { name: 'href', type: 'text', placeholder: '\u0412\u0432\u0435\u0434\u0438\u0442\u0435 c\u0441\u044B\u043B\u043A\u0443 \u0434\u043B\u044F \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0438 \u0438\u043B\u0438 \u043E\u0441\u0442\u0430\u0432\u044C\u0442\u0435 \u043F\u043E\u043B\u0435 \u043F\u0443\u0441\u0442\u044B\u043C', disabled: !(selected in previews), value: preview && preview.href, onChange: handleChange, className: 'form__input' }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'form__file' },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", { className: 'form__btn', tabIndex: 0 },
+                    "\u0412\u044B\u0431\u0435\u0440\u0435\u0442\u0435 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0443",
+                    react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { name: 'src', type: 'file', disabled: !(selected in previews), onChange: handleChange, style: { opacity: 0, width: 0 }, tabIndex: -1 })),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { type: 'button', className: 'form__btn form__btn_delete', onClick: deleteSrc }, "X")),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'form__color' },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", { htmlFor: 'color1' }, "Color1:"),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: 'color', id: 'color1', name: 'color1', disabled: !(selected in previews), value: preview && preview.color1, onChange: handleChange, className: 'form__color-input' }),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", { htmlFor: 'color2' }, "Color2:"),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: 'color', id: 'color2', name: 'color2', disabled: !(selected in previews), value: preview && preview.color2, onChange: handleChange, className: 'form__color-input' })),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { type: 'button', className: 'form__btn', onClick: function () { return handleGetString('json'); } }, "\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043A\u0430\u043A JSON"),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { type: 'button', className: 'form__btn', onClick: function () { return handleGetString('html'); } }, "\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043A\u0430\u043A HTML"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'form__textarea' },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { id: 'form__json', value: JSON.stringify(preview), readOnly: true }),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { id: 'form__html', value: html, readOnly: true })))));
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { id: 'form__json', className: 'form__input', value: JSON.stringify(preview), rows: 10, readOnly: true }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { id: 'form__html', className: 'form__input', value: html, rows: 10, readOnly: true }))));
 }
 
 
