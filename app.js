@@ -33897,24 +33897,29 @@ function Previewer(_a) {
         document.execCommand('copy');
     };
     Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-        var selected = document.querySelector('.previewer_selected .story-previewer-title'), _a = window.getComputedStyle(selected), height = _a.height, lineHeight = _a.lineHeight, lines = Math.floor(parseInt(height) / parseInt(lineHeight));
-        if (lines > 3) {
-            alert('Подпись должна быть не длиннее 3ех строчек');
-            dispatch({ type: 'EDIT', name: 'title', value: lastValue });
-        }
-        else {
-            lastValue = preview.title;
+        var selected = document.querySelector('.previewer_selected .story-previewer-title');
+        if (selected) {
+            var _a = window.getComputedStyle(selected), height = _a.height, lineHeight = _a.lineHeight, lines = Math.floor(parseInt(height) / parseInt(lineHeight));
+            if (lines > 3) {
+                alert('Подпись должна быть не длиннее 3ех строчек');
+                dispatch({ type: 'EDIT', name: 'title', value: lastValue });
+            }
+            else {
+                lastValue = preview.title;
+            }
         }
     }, [preview && preview.title]);
     Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-        var selected = document.querySelector('.previewer_selected').outerHTML;
-        selected = selected.replace(/<button.*<\/button>/g, '');
-        if (preview.href.trim() !== '') {
-            selected = "<a href=\"" + preview.href
-                .trim()
-                .replace(/"/g, '\\"') + "\">" + selected + "</a>";
+        var selectedEl = document.querySelector('.previewer_selected');
+        if (selectedEl) {
+            var selectedHtml = selectedEl.outerHTML.replace(/<button.*<\/button>/g, ''), href_1 = preview.href.trim(), anchor = function (html) {
+                return "<a href=\"" + href_1.replace(/"/g, '\\"') + "\">" + html + "</a>";
+            };
+            setHtml(href_1 ? anchor(selectedHtml) : selectedHtml);
         }
-        setHtml(selected);
+        else {
+            setHtml('');
+        }
     }, [preview]);
     return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null,
         react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'form' },
@@ -33925,7 +33930,7 @@ function Previewer(_a) {
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", { className: 'form__btn', tabIndex: 0 },
                     "\u0412\u044B\u0431\u0435\u0440\u0435\u0442\u0435 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0443",
                     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { name: 'src', type: 'file', disabled: !(selected in previews), onChange: handleChange, style: { opacity: 0, width: 0 }, tabIndex: -1 })),
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { type: 'button', className: 'form__btn form__btn_delete', onClick: deleteSrc }, "X")),
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { type: 'button', className: 'form__btn form__btn_delete', disabled: !(selected in previews), onClick: deleteSrc }, "X")),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", { className: 'form__color' },
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", { htmlFor: 'color1' }, "Color1:"),
                 react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { type: 'color', id: 'color1', name: 'color1', disabled: !(selected in previews), value: preview && preview.color1, onChange: handleChange, className: 'form__color-input' }),
@@ -33934,7 +33939,7 @@ function Previewer(_a) {
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { type: 'button', className: 'form__btn', onClick: function () { return handleGetString('json'); } }, "\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043A\u0430\u043A JSON"),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", { type: 'button', className: 'form__btn', onClick: function () { return handleGetString('html'); } }, "\u0421\u043A\u043E\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u043A\u0430\u043A HTML"),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { id: 'form__json', className: 'form__input', value: JSON.stringify(preview), rows: 10, readOnly: true }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { id: 'form__json', className: 'form__input', value: JSON.stringify(preview || ''), rows: 10, readOnly: true }),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", { id: 'form__html', className: 'form__input', value: html, rows: 10, readOnly: true }))));
 }
 
