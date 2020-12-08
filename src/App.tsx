@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import CarouselList from './blocks/CarouselList';
+import CarouselList from './components/CarouselList';
 import Previewer from './components/Previewer';
 import AddPreviewer from './components/AddPreviewer';
-import Form from './blocks/Form';
+import Form from './components/Form';
 
 import { PreviewersState } from './reducers/previewers';
 

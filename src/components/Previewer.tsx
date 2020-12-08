@@ -50,12 +50,12 @@ export default function ({
       </button>
       <button
         className='previewer__btn previewer__btn_arrow previewer__btn_arrow-left'
-        onClick={(e) => handleClick(e, { type: 'MOVE_LEFT' })}>
+        onClick={(e) => handleClick(e, { type: 'MOVE', step: -1 })}>
         <img alt='←' src={left} className='previewer__btn_img' />
       </button>
       <button
         className='previewer__btn previewer__btn_arrow previewer__btn_arrow-right'
-        onClick={(e) => handleClick(e, { type: 'MOVE_RIGHT' })}>
+        onClick={(e) => handleClick(e, { type: 'MOVE', step: 1 })}>
         <img alt='→' src={right} className='previewer__btn_img' />
       </button>
       <div
