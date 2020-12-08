@@ -1,6 +1,9 @@
 import React, { MouseEvent } from 'react';
 import { PreviewerActionType, useAppDispatch } from '../reducers/previewers';
 import styles from './previewer.styles';
+import left from '../media/left.svg';
+import right from '../media/right.svg';
+import cancel from '../media/cancel.svg';
 
 export type PreviewerProps = {
   src: string;
@@ -43,17 +46,17 @@ export default function ({
       <button
         className='previewer__btn previewer__btn_delete'
         onClick={(e) => handleClick(e, { type: 'DELETE' })}>
-        X
+        <img alt='✖' src={cancel} className='previewer__btn_img' />
       </button>
       <button
         className='previewer__btn previewer__btn_arrow previewer__btn_arrow-left'
         onClick={(e) => handleClick(e, { type: 'MOVE_LEFT' })}>
-        {'<'}
+        <img alt='←' src={left} className='previewer__btn_img' />
       </button>
       <button
         className='previewer__btn previewer__btn_arrow previewer__btn_arrow-right'
         onClick={(e) => handleClick(e, { type: 'MOVE_RIGHT' })}>
-        {'>'}
+        <img alt='→' src={right} className='previewer__btn_img' />
       </button>
       <div
         style={{ ...styles['story-previewer-preview'], background }}

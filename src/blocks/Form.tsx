@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAppDispatch } from '../reducers/previewers';
 import FileReaderAsync from '../func/FileReaderAsync';
 import { toPng } from 'html-to-image';
 import execCopyCommand from '../func/execCopyCommand';
 
 import { PreviewerProps } from '../components/Previewer';
+
+import cancel from '../media/cancel.svg';
 
 export type InputChangeEvent = (
   event: React.ChangeEvent<HTMLInputElement>
@@ -102,7 +104,7 @@ export default function ({ preview }: { preview: PreviewerProps | undefined }) {
             className='form__btn form__btn_delete'
             disabled={!preview}
             onClick={deleteSrc}>
-            X
+            <img alt='X' src={cancel} className='form__btn_img' />
           </button>
         </div>
         <div className='form__color'>
